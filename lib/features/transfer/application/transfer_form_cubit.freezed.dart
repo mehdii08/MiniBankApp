@@ -16,9 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TransferFormState {
-  BeneficiaryNameInput get beneficiary => throw _privateConstructorUsedError;
-  AccountNumberInput get accountNumber => throw _privateConstructorUsedError;
-  AmountInput get amount => throw _privateConstructorUsedError;
+  String get beneficiary => throw _privateConstructorUsedError;
+  String get accountNumber => throw _privateConstructorUsedError;
+  String get amount => throw _privateConstructorUsedError;
+  String? get beneficiaryError => throw _privateConstructorUsedError;
+  String? get accountNumberError => throw _privateConstructorUsedError;
+  String? get amountError => throw _privateConstructorUsedError;
   bool get isValid => throw _privateConstructorUsedError;
   SubmissionStatus get submissionStatus => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
@@ -35,9 +38,12 @@ abstract class $TransferFormStateCopyWith<$Res> {
       _$TransferFormStateCopyWithImpl<$Res, TransferFormState>;
   @useResult
   $Res call(
-      {BeneficiaryNameInput beneficiary,
-      AccountNumberInput accountNumber,
-      AmountInput amount,
+      {String beneficiary,
+      String accountNumber,
+      String amount,
+      String? beneficiaryError,
+      String? accountNumberError,
+      String? amountError,
       bool isValid,
       SubmissionStatus submissionStatus,
       String? error});
@@ -59,6 +65,9 @@ class _$TransferFormStateCopyWithImpl<$Res, $Val extends TransferFormState>
     Object? beneficiary = null,
     Object? accountNumber = null,
     Object? amount = null,
+    Object? beneficiaryError = freezed,
+    Object? accountNumberError = freezed,
+    Object? amountError = freezed,
     Object? isValid = null,
     Object? submissionStatus = null,
     Object? error = freezed,
@@ -67,15 +76,27 @@ class _$TransferFormStateCopyWithImpl<$Res, $Val extends TransferFormState>
       beneficiary: null == beneficiary
           ? _value.beneficiary
           : beneficiary // ignore: cast_nullable_to_non_nullable
-              as BeneficiaryNameInput,
+              as String,
       accountNumber: null == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
-              as AccountNumberInput,
+              as String,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as AmountInput,
+              as String,
+      beneficiaryError: freezed == beneficiaryError
+          ? _value.beneficiaryError
+          : beneficiaryError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accountNumberError: freezed == accountNumberError
+          ? _value.accountNumberError
+          : accountNumberError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amountError: freezed == amountError
+          ? _value.amountError
+          : amountError // ignore: cast_nullable_to_non_nullable
+              as String?,
       isValid: null == isValid
           ? _value.isValid
           : isValid // ignore: cast_nullable_to_non_nullable
@@ -101,9 +122,12 @@ abstract class _$$TransferFormStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {BeneficiaryNameInput beneficiary,
-      AccountNumberInput accountNumber,
-      AmountInput amount,
+      {String beneficiary,
+      String accountNumber,
+      String amount,
+      String? beneficiaryError,
+      String? accountNumberError,
+      String? amountError,
       bool isValid,
       SubmissionStatus submissionStatus,
       String? error});
@@ -123,6 +147,9 @@ class __$$TransferFormStateImplCopyWithImpl<$Res>
     Object? beneficiary = null,
     Object? accountNumber = null,
     Object? amount = null,
+    Object? beneficiaryError = freezed,
+    Object? accountNumberError = freezed,
+    Object? amountError = freezed,
     Object? isValid = null,
     Object? submissionStatus = null,
     Object? error = freezed,
@@ -131,15 +158,27 @@ class __$$TransferFormStateImplCopyWithImpl<$Res>
       beneficiary: null == beneficiary
           ? _value.beneficiary
           : beneficiary // ignore: cast_nullable_to_non_nullable
-              as BeneficiaryNameInput,
+              as String,
       accountNumber: null == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
-              as AccountNumberInput,
+              as String,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as AmountInput,
+              as String,
+      beneficiaryError: freezed == beneficiaryError
+          ? _value.beneficiaryError
+          : beneficiaryError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accountNumberError: freezed == accountNumberError
+          ? _value.accountNumberError
+          : accountNumberError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amountError: freezed == amountError
+          ? _value.amountError
+          : amountError // ignore: cast_nullable_to_non_nullable
+              as String?,
       isValid: null == isValid
           ? _value.isValid
           : isValid // ignore: cast_nullable_to_non_nullable
@@ -160,22 +199,34 @@ class __$$TransferFormStateImplCopyWithImpl<$Res>
 
 class _$TransferFormStateImpl implements _TransferFormState {
   const _$TransferFormStateImpl(
-      {this.beneficiary = const BeneficiaryNameInput.pure(),
-      this.accountNumber = const AccountNumberInput.pure(),
-      this.amount = const AmountInput.pure(),
+      {this.beneficiary = '',
+      this.accountNumber = '',
+      this.amount = '',
+      this.beneficiaryError = null,
+      this.accountNumberError = null,
+      this.amountError = null,
       this.isValid = false,
       this.submissionStatus = SubmissionStatus.pure,
       this.error});
 
   @override
   @JsonKey()
-  final BeneficiaryNameInput beneficiary;
+  final String beneficiary;
   @override
   @JsonKey()
-  final AccountNumberInput accountNumber;
+  final String accountNumber;
   @override
   @JsonKey()
-  final AmountInput amount;
+  final String amount;
+  @override
+  @JsonKey()
+  final String? beneficiaryError;
+  @override
+  @JsonKey()
+  final String? accountNumberError;
+  @override
+  @JsonKey()
+  final String? amountError;
   @override
   @JsonKey()
   final bool isValid;
@@ -187,7 +238,7 @@ class _$TransferFormStateImpl implements _TransferFormState {
 
   @override
   String toString() {
-    return 'TransferFormState(beneficiary: $beneficiary, accountNumber: $accountNumber, amount: $amount, isValid: $isValid, submissionStatus: $submissionStatus, error: $error)';
+    return 'TransferFormState(beneficiary: $beneficiary, accountNumber: $accountNumber, amount: $amount, beneficiaryError: $beneficiaryError, accountNumberError: $accountNumberError, amountError: $amountError, isValid: $isValid, submissionStatus: $submissionStatus, error: $error)';
   }
 
   @override
@@ -200,6 +251,12 @@ class _$TransferFormStateImpl implements _TransferFormState {
             (identical(other.accountNumber, accountNumber) ||
                 other.accountNumber == accountNumber) &&
             (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.beneficiaryError, beneficiaryError) ||
+                other.beneficiaryError == beneficiaryError) &&
+            (identical(other.accountNumberError, accountNumberError) ||
+                other.accountNumberError == accountNumberError) &&
+            (identical(other.amountError, amountError) ||
+                other.amountError == amountError) &&
             (identical(other.isValid, isValid) || other.isValid == isValid) &&
             (identical(other.submissionStatus, submissionStatus) ||
                 other.submissionStatus == submissionStatus) &&
@@ -207,8 +264,17 @@ class _$TransferFormStateImpl implements _TransferFormState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, beneficiary, accountNumber,
-      amount, isValid, submissionStatus, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      beneficiary,
+      accountNumber,
+      amount,
+      beneficiaryError,
+      accountNumberError,
+      amountError,
+      isValid,
+      submissionStatus,
+      error);
 
   @JsonKey(ignore: true)
   @override
@@ -220,19 +286,28 @@ class _$TransferFormStateImpl implements _TransferFormState {
 
 abstract class _TransferFormState implements TransferFormState {
   const factory _TransferFormState(
-      {final BeneficiaryNameInput beneficiary,
-      final AccountNumberInput accountNumber,
-      final AmountInput amount,
+      {final String beneficiary,
+      final String accountNumber,
+      final String amount,
+      final String? beneficiaryError,
+      final String? accountNumberError,
+      final String? amountError,
       final bool isValid,
       final SubmissionStatus submissionStatus,
       final String? error}) = _$TransferFormStateImpl;
 
   @override
-  BeneficiaryNameInput get beneficiary;
+  String get beneficiary;
   @override
-  AccountNumberInput get accountNumber;
+  String get accountNumber;
   @override
-  AmountInput get amount;
+  String get amount;
+  @override
+  String? get beneficiaryError;
+  @override
+  String? get accountNumberError;
+  @override
+  String? get amountError;
   @override
   bool get isValid;
   @override

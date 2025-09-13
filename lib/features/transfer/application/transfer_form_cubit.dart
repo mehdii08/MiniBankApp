@@ -3,42 +3,23 @@ import 'package:formz/formz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mini_bank_app/core/bloc/base_bloc.dart';
 import 'package:mini_bank_app/core/bloc/ui_action.dart';
+import 'package:mini_bank_app/core/constants/messages.dart';
+import 'package:mini_bank_app/core/router/routes.dart';
+import 'package:mini_bank_app/core/utils/string_validators.dart';
 import 'package:mini_bank_app/features/transfer/domain/entities/transfer_request.dart';
 import 'package:mini_bank_app/features/transfer/domain/usecases/submit_transfer.dart';
 
 part 'transfer_form_cubit.freezed.dart';
 
-class BeneficiaryNameInput extends FormzInput<String, String> {
-  const BeneficiaryNameInput.pure() : super.pure('');
-  const BeneficiaryNameInput.dirty([String value = '']) : super.dirty(value);
-  @override
-  String? validator(String value) => value.trim().isEmpty ? 'Required' : null;
-}
-
-class AccountNumberInput extends FormzInput<String, String> {
-  const AccountNumberInput.pure() : super.pure('');
-  const AccountNumberInput.dirty([String value = '']) : super.dirty(value);
-  @override
-  String? validator(String value) => value.trim().length < 6 ? 'Invalid' : null;
-}
-
-class AmountInput extends FormzInput<String, String> {
-  const AmountInput.pure() : super.pure('');
-  const AmountInput.dirty([String value = '']) : super.dirty(value);
-  @override
-  String? validator(String value) {
-    final double? v = double.tryParse(value);
-    if (v == null || v <= 0) return 'Invalid';
-    return null;
-  }
-}
-
 @freezed
 class TransferFormState with _$TransferFormState {
   const factory TransferFormState({
-    @Default(BeneficiaryNameInput.pure()) BeneficiaryNameInput beneficiary,
-    @Default(AccountNumberInput.pure()) AccountNumberInput accountNumber,
-    @Default(AmountInput.pure()) AmountInput amount,
+    @Default('') String beneficiary,
+    @Default('') String accountNumber,
+    @Default('') String amount,
+    @Default(null) String? beneficiaryError,
+    @Default(null) String? accountNumberError,
+    @Default(null) String? amountError,
     @Default(false) bool isValid,
     @Default(SubmissionStatus.pure) SubmissionStatus submissionStatus,
     String? error,
@@ -52,33 +33,55 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
   final SubmitTransfer _submit;
 
   void beneficiaryChanged(String v) {
-    final next = state.copyWith(beneficiary: BeneficiaryNameInput.dirty(v));
-    emit(next.copyWith(isValid: _validate(next)));
+    emit(state.copyWith(beneficiary: v));
   }
 
   void accountNumberChanged(String v) {
-    final next = state.copyWith(accountNumber: AccountNumberInput.dirty(v));
-    emit(next.copyWith(isValid: _validate(next)));
+    emit(state.copyWith(accountNumber: v));
   }
 
   void amountChanged(String v) {
-    final next = state.copyWith(amount: AmountInput.dirty(v));
-    emit(next.copyWith(isValid: _validate(next)));
+    emit(state.copyWith(amount: v));
+  }
+
+  void _clearErrors(){
+    emit(
+      state.copyWith(
+        beneficiaryError : null,
+        accountNumberError : null,
+        amountError : null,
+      )
+    );
   }
 
   Future<void> submit({required String accountId, required double currentBalance}) async {
-    final bool valid = _validate(state);
-    emit(state.copyWith(isValid: valid));
-    if (!valid) return;
-    final double amount = double.parse(state.amount.value);
+    if (state.submissionStatus == SubmissionStatus.inProgress) return;
+    _clearErrors();
+    int errorCount = 0;
+    if(state.beneficiary.isEmpty){
+      errorCount += 1;
+      emit(state.copyWith(beneficiaryError: 'Beneficiary name is required'));
+    }
+    if(state.accountNumber.isEmpty){
+      errorCount += 1;
+      emit(state.copyWith(accountNumberError: 'Account Number is required'));
+    }
+    if(!state.amount.isValidAmount){
+      errorCount += 1;
+      emit(state.copyWith(amountError: 'Enter a valid amount'));
+    }
+    if(errorCount > 0) return;
+
+    final double amount = double.parse(state.amount);
     final newBalance = currentBalance - amount;
     if (newBalance < 0) {
       emit(state.copyWith(submissionStatus: SubmissionStatus.failure, error: 'Insufficient balance'));
+      emitAction(const UiAction.showSnackbar(message: 'Insufficient balance'));
       return;
     }
     final req = TransferRequest(
-      beneficiaryName: state.beneficiary.value.trim(),
-      accountNumber: state.accountNumber.value.trim(),
+      beneficiaryName: state.beneficiary.trim(),
+      accountNumber: state.accountNumber.trim(),
       amount: amount,
     );
     emit(state.copyWith(submissionStatus: SubmissionStatus.inProgress));
@@ -90,10 +93,9 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
     ));
     emit(state.copyWith(submissionStatus: SubmissionStatus.success));
     emitAction(const UiAction.showSnackbar(message: 'Transfer successful'));
+    emitAction(UiAction.pop());
   }
 
-  bool _validate(TransferFormState s) =>
-      Formz.validate([s.beneficiary, s.accountNumber, s.amount]);
 }
 
 enum SubmissionStatus { pure, inProgress, success, failure }

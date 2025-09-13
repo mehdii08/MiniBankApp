@@ -8,6 +8,8 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.hintText,
     this.obscureText = false,
+    this.errorText,
+    this.keyboardType,
   });
 
   final TextEditingController? controller;
@@ -15,6 +17,8 @@ class AppTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final String? hintText;
   final bool obscureText;
+  final String? errorText;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +30,11 @@ class AppTextField extends StatelessWidget {
       controller: controller,
       style: style,
       obscureText: obscureText,
+      keyboardType: keyboardType,
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
+        errorText: errorText,
         isDense: true,
         border: border,
         enabledBorder: border,

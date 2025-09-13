@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mini_bank_app/core/router/routes.dart';
 import 'package:mini_bank_app/features/account/application/account_bloc.dart';
 import 'package:mini_bank_app/features/auth/application/auth_bloc.dart';
 import 'package:mini_bank_app/features/transfer/application/transfer_form_cubit.dart';
 import 'package:mini_bank_app/core/bloc/bloc_actions_listener.dart';
+import 'package:mini_bank_app/core/widgets/app_text_field.dart';
+import 'package:mini_bank_app/core/widgets/app_button.dart';
+import 'package:mini_bank_app/l10n/l10n.dart';
 
 class TransferPage extends StatefulWidget {
   const TransferPage({super.key});
@@ -29,6 +31,8 @@ class _TransferPageState extends State<TransferPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final strings = S.of(context);
     context.watch<AuthBloc>().state;
     String? accountId;
     double currentBalance = 0;
@@ -39,52 +43,42 @@ class _TransferPageState extends State<TransferPage> {
     );
     return BlocActionsListener<TransferFormCubit>(
       child: Scaffold(
-      appBar: AppBar(title: const Text('Transfer'), leading: IconButton(onPressed: () => context.pop(), icon: Icon(Icons.arrow_back),)),
-      body: BlocConsumer<TransferFormCubit, TransferFormState>(
-        listener: (context, state) {
-          if (state.submissionStatus == SubmissionStatus.success) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Transfer successful')));
-          } else if (state.submissionStatus == SubmissionStatus.failure && state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error!)));
-          }
-        },
+      appBar: AppBar(title: Text(strings.transferTitle), leading: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back),)),
+      body: BlocBuilder<TransferFormCubit, TransferFormState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: <Widget>[
-                TextField(
+                AppTextField(
                   controller: _beneficiary,
-                  decoration: const InputDecoration(labelText: 'Beneficiary name'),
+                  hintText: strings.beneficiaryLabel,
+                  errorText: state.beneficiaryError,
                   onChanged: (v) => context.read<TransferFormCubit>().beneficiaryChanged(v),
                 ),
                 const SizedBox(height: 12),
-                TextField(
+                AppTextField(
                   controller: _accountNumber,
-                  decoration: const InputDecoration(labelText: 'Account number'),
+                  hintText: strings.accountNumberLabel,
+                  errorText: state.accountNumberError,
                   onChanged: (v) => context.read<TransferFormCubit>().accountNumberChanged(v),
                 ),
                 const SizedBox(height: 12),
-                TextField(
+                AppTextField(
                   controller: _amount,
-                  decoration: const InputDecoration(labelText: 'Amount'),
+                  hintText: strings.amountLabel,
+                  errorText: state.amountError,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   onChanged: (v) => context.read<TransferFormCubit>().amountChanged(v),
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: state.isValid
-                        ? () => context.read<TransferFormCubit>().submit(
-                              accountId: accountId ?? 'acc_1',
-                              currentBalance: currentBalance,
-                            )
-                        : null,
-                    child: state.submissionStatus == SubmissionStatus.inProgress
-                        ? const CircularProgressIndicator.adaptive()
-                        : const Text('Submit'),
+                AppButton(
+                  title: strings.submitButton,
+                  onTap: () => context.read<TransferFormCubit>().submit(
+                    accountId: accountId ?? 'acc_1',
+                    currentBalance: currentBalance,
                   ),
+                  backgroundColor: colorScheme.primary,
                 ),
               ],
             ),

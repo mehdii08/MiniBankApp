@@ -10,6 +10,12 @@ extension StringValidators on String {
     final String value = trim();
     return value.isNotEmpty && value.length >= 6;
   }
+
+  bool get isValidAmount {
+    final double? v = double.tryParse(this);
+    return !(v == null || v <= 0);
+  }
+
 }
 
 

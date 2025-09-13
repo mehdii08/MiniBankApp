@@ -32,6 +32,9 @@ class _BlocActionsListenerState<B> extends State<BlocActionsListener<B>> {
     final stream = (bloc as dynamic).actions as Stream<UiAction>;
     _sub = stream.listen((action) async {
       await action.map(
+        pop: (_) async {
+          context.pop();
+        },
         navigate: (a) async {
           if (a.replace) {
             context.go(a.location, extra: a.extra);
@@ -116,6 +119,8 @@ String _resolveMessage(BuildContext context, String message) {
       return s.invalidCredentials;
     case MessageKeys.userNotFound:
       return s.userNotFound;
+    case MessageKeys.formInvalid:
+      return s.formInvalid;
     default:
       return message;
   }

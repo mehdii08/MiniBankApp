@@ -20,6 +20,7 @@ mixin _$UiAction {
   TResult when<TResult extends Object?>({
     required TResult Function(String location, Object? extra, bool replace)
         navigate,
+    required TResult Function() pop,
     required TResult Function(String message) showSnackbar,
     required TResult Function(String title, String message, Object? payload)
         showDialog,
@@ -30,6 +31,7 @@ mixin _$UiAction {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String location, Object? extra, bool replace)? navigate,
+    TResult? Function()? pop,
     TResult? Function(String message)? showSnackbar,
     TResult? Function(String title, String message, Object? payload)?
         showDialog,
@@ -40,6 +42,7 @@ mixin _$UiAction {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String location, Object? extra, bool replace)? navigate,
+    TResult Function()? pop,
     TResult Function(String message)? showSnackbar,
     TResult Function(String title, String message, Object? payload)? showDialog,
     TResult Function(String title, String? message, Object? payload)?
@@ -50,6 +53,7 @@ mixin _$UiAction {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Navigate value) navigate,
+    required TResult Function(_Pop value) pop,
     required TResult Function(_ShowSnackbar value) showSnackbar,
     required TResult Function(_ShowDialog value) showDialog,
     required TResult Function(_ShowBottomSheet value) showBottomSheet,
@@ -58,6 +62,7 @@ mixin _$UiAction {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Navigate value)? navigate,
+    TResult? Function(_Pop value)? pop,
     TResult? Function(_ShowSnackbar value)? showSnackbar,
     TResult? Function(_ShowDialog value)? showDialog,
     TResult? Function(_ShowBottomSheet value)? showBottomSheet,
@@ -66,6 +71,7 @@ mixin _$UiAction {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Navigate value)? navigate,
+    TResult Function(_Pop value)? pop,
     TResult Function(_ShowSnackbar value)? showSnackbar,
     TResult Function(_ShowDialog value)? showDialog,
     TResult Function(_ShowBottomSheet value)? showBottomSheet,
@@ -174,6 +180,7 @@ class _$NavigateImpl implements _Navigate {
   TResult when<TResult extends Object?>({
     required TResult Function(String location, Object? extra, bool replace)
         navigate,
+    required TResult Function() pop,
     required TResult Function(String message) showSnackbar,
     required TResult Function(String title, String message, Object? payload)
         showDialog,
@@ -187,6 +194,7 @@ class _$NavigateImpl implements _Navigate {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String location, Object? extra, bool replace)? navigate,
+    TResult? Function()? pop,
     TResult? Function(String message)? showSnackbar,
     TResult? Function(String title, String message, Object? payload)?
         showDialog,
@@ -200,6 +208,7 @@ class _$NavigateImpl implements _Navigate {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String location, Object? extra, bool replace)? navigate,
+    TResult Function()? pop,
     TResult Function(String message)? showSnackbar,
     TResult Function(String title, String message, Object? payload)? showDialog,
     TResult Function(String title, String? message, Object? payload)?
@@ -216,6 +225,7 @@ class _$NavigateImpl implements _Navigate {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Navigate value) navigate,
+    required TResult Function(_Pop value) pop,
     required TResult Function(_ShowSnackbar value) showSnackbar,
     required TResult Function(_ShowDialog value) showDialog,
     required TResult Function(_ShowBottomSheet value) showBottomSheet,
@@ -227,6 +237,7 @@ class _$NavigateImpl implements _Navigate {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Navigate value)? navigate,
+    TResult? Function(_Pop value)? pop,
     TResult? Function(_ShowSnackbar value)? showSnackbar,
     TResult? Function(_ShowDialog value)? showDialog,
     TResult? Function(_ShowBottomSheet value)? showBottomSheet,
@@ -238,6 +249,7 @@ class _$NavigateImpl implements _Navigate {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Navigate value)? navigate,
+    TResult Function(_Pop value)? pop,
     TResult Function(_ShowSnackbar value)? showSnackbar,
     TResult Function(_ShowDialog value)? showDialog,
     TResult Function(_ShowBottomSheet value)? showBottomSheet,
@@ -262,6 +274,130 @@ abstract class _Navigate implements UiAction {
   @JsonKey(ignore: true)
   _$$NavigateImplCopyWith<_$NavigateImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PopImplCopyWith<$Res> {
+  factory _$$PopImplCopyWith(_$PopImpl value, $Res Function(_$PopImpl) then) =
+      __$$PopImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PopImplCopyWithImpl<$Res>
+    extends _$UiActionCopyWithImpl<$Res, _$PopImpl>
+    implements _$$PopImplCopyWith<$Res> {
+  __$$PopImplCopyWithImpl(_$PopImpl _value, $Res Function(_$PopImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PopImpl implements _Pop {
+  const _$PopImpl();
+
+  @override
+  String toString() {
+    return 'UiAction.pop()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PopImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String location, Object? extra, bool replace)
+        navigate,
+    required TResult Function() pop,
+    required TResult Function(String message) showSnackbar,
+    required TResult Function(String title, String message, Object? payload)
+        showDialog,
+    required TResult Function(String title, String? message, Object? payload)
+        showBottomSheet,
+  }) {
+    return pop();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String location, Object? extra, bool replace)? navigate,
+    TResult? Function()? pop,
+    TResult? Function(String message)? showSnackbar,
+    TResult? Function(String title, String message, Object? payload)?
+        showDialog,
+    TResult? Function(String title, String? message, Object? payload)?
+        showBottomSheet,
+  }) {
+    return pop?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String location, Object? extra, bool replace)? navigate,
+    TResult Function()? pop,
+    TResult Function(String message)? showSnackbar,
+    TResult Function(String title, String message, Object? payload)? showDialog,
+    TResult Function(String title, String? message, Object? payload)?
+        showBottomSheet,
+    required TResult orElse(),
+  }) {
+    if (pop != null) {
+      return pop();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Navigate value) navigate,
+    required TResult Function(_Pop value) pop,
+    required TResult Function(_ShowSnackbar value) showSnackbar,
+    required TResult Function(_ShowDialog value) showDialog,
+    required TResult Function(_ShowBottomSheet value) showBottomSheet,
+  }) {
+    return pop(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Navigate value)? navigate,
+    TResult? Function(_Pop value)? pop,
+    TResult? Function(_ShowSnackbar value)? showSnackbar,
+    TResult? Function(_ShowDialog value)? showDialog,
+    TResult? Function(_ShowBottomSheet value)? showBottomSheet,
+  }) {
+    return pop?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Navigate value)? navigate,
+    TResult Function(_Pop value)? pop,
+    TResult Function(_ShowSnackbar value)? showSnackbar,
+    TResult Function(_ShowDialog value)? showDialog,
+    TResult Function(_ShowBottomSheet value)? showBottomSheet,
+    required TResult orElse(),
+  }) {
+    if (pop != null) {
+      return pop(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Pop implements UiAction {
+  const factory _Pop() = _$PopImpl;
 }
 
 /// @nodoc
@@ -330,6 +466,7 @@ class _$ShowSnackbarImpl implements _ShowSnackbar {
   TResult when<TResult extends Object?>({
     required TResult Function(String location, Object? extra, bool replace)
         navigate,
+    required TResult Function() pop,
     required TResult Function(String message) showSnackbar,
     required TResult Function(String title, String message, Object? payload)
         showDialog,
@@ -343,6 +480,7 @@ class _$ShowSnackbarImpl implements _ShowSnackbar {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String location, Object? extra, bool replace)? navigate,
+    TResult? Function()? pop,
     TResult? Function(String message)? showSnackbar,
     TResult? Function(String title, String message, Object? payload)?
         showDialog,
@@ -356,6 +494,7 @@ class _$ShowSnackbarImpl implements _ShowSnackbar {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String location, Object? extra, bool replace)? navigate,
+    TResult Function()? pop,
     TResult Function(String message)? showSnackbar,
     TResult Function(String title, String message, Object? payload)? showDialog,
     TResult Function(String title, String? message, Object? payload)?
@@ -372,6 +511,7 @@ class _$ShowSnackbarImpl implements _ShowSnackbar {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Navigate value) navigate,
+    required TResult Function(_Pop value) pop,
     required TResult Function(_ShowSnackbar value) showSnackbar,
     required TResult Function(_ShowDialog value) showDialog,
     required TResult Function(_ShowBottomSheet value) showBottomSheet,
@@ -383,6 +523,7 @@ class _$ShowSnackbarImpl implements _ShowSnackbar {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Navigate value)? navigate,
+    TResult? Function(_Pop value)? pop,
     TResult? Function(_ShowSnackbar value)? showSnackbar,
     TResult? Function(_ShowDialog value)? showDialog,
     TResult? Function(_ShowBottomSheet value)? showBottomSheet,
@@ -394,6 +535,7 @@ class _$ShowSnackbarImpl implements _ShowSnackbar {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Navigate value)? navigate,
+    TResult Function(_Pop value)? pop,
     TResult Function(_ShowSnackbar value)? showSnackbar,
     TResult Function(_ShowDialog value)? showDialog,
     TResult Function(_ShowBottomSheet value)? showBottomSheet,
@@ -497,6 +639,7 @@ class _$ShowDialogImpl implements _ShowDialog {
   TResult when<TResult extends Object?>({
     required TResult Function(String location, Object? extra, bool replace)
         navigate,
+    required TResult Function() pop,
     required TResult Function(String message) showSnackbar,
     required TResult Function(String title, String message, Object? payload)
         showDialog,
@@ -510,6 +653,7 @@ class _$ShowDialogImpl implements _ShowDialog {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String location, Object? extra, bool replace)? navigate,
+    TResult? Function()? pop,
     TResult? Function(String message)? showSnackbar,
     TResult? Function(String title, String message, Object? payload)?
         showDialog,
@@ -523,6 +667,7 @@ class _$ShowDialogImpl implements _ShowDialog {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String location, Object? extra, bool replace)? navigate,
+    TResult Function()? pop,
     TResult Function(String message)? showSnackbar,
     TResult Function(String title, String message, Object? payload)? showDialog,
     TResult Function(String title, String? message, Object? payload)?
@@ -539,6 +684,7 @@ class _$ShowDialogImpl implements _ShowDialog {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Navigate value) navigate,
+    required TResult Function(_Pop value) pop,
     required TResult Function(_ShowSnackbar value) showSnackbar,
     required TResult Function(_ShowDialog value) showDialog,
     required TResult Function(_ShowBottomSheet value) showBottomSheet,
@@ -550,6 +696,7 @@ class _$ShowDialogImpl implements _ShowDialog {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Navigate value)? navigate,
+    TResult? Function(_Pop value)? pop,
     TResult? Function(_ShowSnackbar value)? showSnackbar,
     TResult? Function(_ShowDialog value)? showDialog,
     TResult? Function(_ShowBottomSheet value)? showBottomSheet,
@@ -561,6 +708,7 @@ class _$ShowDialogImpl implements _ShowDialog {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Navigate value)? navigate,
+    TResult Function(_Pop value)? pop,
     TResult Function(_ShowSnackbar value)? showSnackbar,
     TResult Function(_ShowDialog value)? showDialog,
     TResult Function(_ShowBottomSheet value)? showBottomSheet,
@@ -669,6 +817,7 @@ class _$ShowBottomSheetImpl implements _ShowBottomSheet {
   TResult when<TResult extends Object?>({
     required TResult Function(String location, Object? extra, bool replace)
         navigate,
+    required TResult Function() pop,
     required TResult Function(String message) showSnackbar,
     required TResult Function(String title, String message, Object? payload)
         showDialog,
@@ -682,6 +831,7 @@ class _$ShowBottomSheetImpl implements _ShowBottomSheet {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String location, Object? extra, bool replace)? navigate,
+    TResult? Function()? pop,
     TResult? Function(String message)? showSnackbar,
     TResult? Function(String title, String message, Object? payload)?
         showDialog,
@@ -695,6 +845,7 @@ class _$ShowBottomSheetImpl implements _ShowBottomSheet {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String location, Object? extra, bool replace)? navigate,
+    TResult Function()? pop,
     TResult Function(String message)? showSnackbar,
     TResult Function(String title, String message, Object? payload)? showDialog,
     TResult Function(String title, String? message, Object? payload)?
@@ -711,6 +862,7 @@ class _$ShowBottomSheetImpl implements _ShowBottomSheet {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Navigate value) navigate,
+    required TResult Function(_Pop value) pop,
     required TResult Function(_ShowSnackbar value) showSnackbar,
     required TResult Function(_ShowDialog value) showDialog,
     required TResult Function(_ShowBottomSheet value) showBottomSheet,
@@ -722,6 +874,7 @@ class _$ShowBottomSheetImpl implements _ShowBottomSheet {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Navigate value)? navigate,
+    TResult? Function(_Pop value)? pop,
     TResult? Function(_ShowSnackbar value)? showSnackbar,
     TResult? Function(_ShowDialog value)? showDialog,
     TResult? Function(_ShowBottomSheet value)? showBottomSheet,
@@ -733,6 +886,7 @@ class _$ShowBottomSheetImpl implements _ShowBottomSheet {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Navigate value)? navigate,
+    TResult Function(_Pop value)? pop,
     TResult Function(_ShowSnackbar value)? showSnackbar,
     TResult Function(_ShowDialog value)? showDialog,
     TResult Function(_ShowBottomSheet value)? showBottomSheet,

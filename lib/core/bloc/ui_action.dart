@@ -10,6 +10,8 @@ class UiAction with _$UiAction {
     @Default(false) bool replace,
   }) = _Navigate;
 
+  const factory UiAction.pop() = _Pop;
+
   const factory UiAction.showSnackbar({
     required String message,
   }) = _ShowSnackbar;
