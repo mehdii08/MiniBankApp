@@ -5,6 +5,8 @@ import 'package:mini_bank_app/core/constants/pagination.dart';
 import 'package:mini_bank_app/features/transactions/domain/entities/transaction.dart' as domain;
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_recent_transactions.dart';
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_transactions_page.dart';
+import 'package:mini_bank_app/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:mini_bank_app/features/transactions/domain/usecases/watch_transactions.dart';
 
 import '../../../core/bloc/base_bloc.dart';
 import '../domain/entities/transaction.dart';
@@ -28,13 +30,18 @@ class TransactionsState with _$TransactionsState {
 
 @injectable
 class TransactionsBloc extends BaseBloc<TransactionsEvent, TransactionsState> {
-  TransactionsBloc(this._getRecent, this._getPage) : super(const TransactionsState.initial()) {
+  TransactionsBloc(this._getRecent, this._getPage, this._watchTx) : super(const TransactionsState.initial()) {
     on<_LoadRecent>(_onLoadRecent);
     on<_LoadPage>(_onLoadPage);
+
+    _watchTx().listen((_) {
+      add(const TransactionsEvent.loadRecent());
+    });
   }
 
   final GetRecentTransactions _getRecent;
   final GetTransactionsPage _getPage;
+  final WatchTransactions _watchTx;
 
   Future<void> _onLoadRecent(_LoadRecent event, Emitter<TransactionsState> emit) async {
     emit(const TransactionsState.loading());

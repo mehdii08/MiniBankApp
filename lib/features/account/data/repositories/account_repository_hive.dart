@@ -28,6 +28,11 @@ class AccountRepositoryHive implements AccountRepository {
     if (acc == null) return;
     await box.put(accountId, acc.copyWith(balance: newBalance));
   }
+
+  @override
+  Stream<double> watch() {
+    return _hive.box(kAccountBox).watch().map((event) => (event.value as AccountModel).balance);
+  }
 }
 
 

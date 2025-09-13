@@ -41,6 +41,11 @@ class TransactionRepositoryHive implements TransactionRepository {
   Future<int> count() async {
     return _hive.box(kTransactionsBox).length;
   }
+
+  @override
+  Stream<void> watch() {
+    return _hive.box(kTransactionsBox).watch().map((_) => null);
+  }
 }
 
 

@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AccountEvent {
-  String get userId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userId) load,
+    required TResult Function(double balance) updateBalance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userId)? load,
+    TResult? Function(double balance)? updateBalance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userId)? load,
+    TResult Function(double balance)? updateBalance,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Load value) load,
+    required TResult Function(_UpdateBalance value) updateBalance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Load value)? load,
+    TResult? Function(_UpdateBalance value)? updateBalance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Load value)? load,
+    TResult Function(_UpdateBalance value)? updateBalance,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $AccountEventCopyWith<AccountEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +61,6 @@ abstract class $AccountEventCopyWith<$Res> {
   factory $AccountEventCopyWith(
           AccountEvent value, $Res Function(AccountEvent) then) =
       _$AccountEventCopyWithImpl<$Res, AccountEvent>;
-  @useResult
-  $Res call({String userId});
 }
 
 /// @nodoc
@@ -73,28 +72,13 @@ class _$AccountEventCopyWithImpl<$Res, $Val extends AccountEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = null,
-  }) {
-    return _then(_value.copyWith(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$LoadImplCopyWith<$Res>
-    implements $AccountEventCopyWith<$Res> {
+abstract class _$$LoadImplCopyWith<$Res> {
   factory _$$LoadImplCopyWith(
           _$LoadImpl value, $Res Function(_$LoadImpl) then) =
       __$$LoadImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String userId});
 }
@@ -154,6 +138,7 @@ class _$LoadImpl implements _Load {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userId) load,
+    required TResult Function(double balance) updateBalance,
   }) {
     return load(userId);
   }
@@ -162,6 +147,7 @@ class _$LoadImpl implements _Load {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userId)? load,
+    TResult? Function(double balance)? updateBalance,
   }) {
     return load?.call(userId);
   }
@@ -170,6 +156,7 @@ class _$LoadImpl implements _Load {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userId)? load,
+    TResult Function(double balance)? updateBalance,
     required TResult orElse(),
   }) {
     if (load != null) {
@@ -182,6 +169,7 @@ class _$LoadImpl implements _Load {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Load value) load,
+    required TResult Function(_UpdateBalance value) updateBalance,
   }) {
     return load(this);
   }
@@ -190,6 +178,7 @@ class _$LoadImpl implements _Load {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Load value)? load,
+    TResult? Function(_UpdateBalance value)? updateBalance,
   }) {
     return load?.call(this);
   }
@@ -198,6 +187,7 @@ class _$LoadImpl implements _Load {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Load value)? load,
+    TResult Function(_UpdateBalance value)? updateBalance,
     required TResult orElse(),
   }) {
     if (load != null) {
@@ -210,11 +200,142 @@ class _$LoadImpl implements _Load {
 abstract class _Load implements AccountEvent {
   const factory _Load(final String userId) = _$LoadImpl;
 
-  @override
   String get userId;
-  @override
   @JsonKey(ignore: true)
   _$$LoadImplCopyWith<_$LoadImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateBalanceImplCopyWith<$Res> {
+  factory _$$UpdateBalanceImplCopyWith(
+          _$UpdateBalanceImpl value, $Res Function(_$UpdateBalanceImpl) then) =
+      __$$UpdateBalanceImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double balance});
+}
+
+/// @nodoc
+class __$$UpdateBalanceImplCopyWithImpl<$Res>
+    extends _$AccountEventCopyWithImpl<$Res, _$UpdateBalanceImpl>
+    implements _$$UpdateBalanceImplCopyWith<$Res> {
+  __$$UpdateBalanceImplCopyWithImpl(
+      _$UpdateBalanceImpl _value, $Res Function(_$UpdateBalanceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? balance = null,
+  }) {
+    return _then(_$UpdateBalanceImpl(
+      null == balance
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateBalanceImpl implements _UpdateBalance {
+  const _$UpdateBalanceImpl(this.balance);
+
+  @override
+  final double balance;
+
+  @override
+  String toString() {
+    return 'AccountEvent.updateBalance(balance: $balance)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateBalanceImpl &&
+            (identical(other.balance, balance) || other.balance == balance));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, balance);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateBalanceImplCopyWith<_$UpdateBalanceImpl> get copyWith =>
+      __$$UpdateBalanceImplCopyWithImpl<_$UpdateBalanceImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userId) load,
+    required TResult Function(double balance) updateBalance,
+  }) {
+    return updateBalance(balance);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String userId)? load,
+    TResult? Function(double balance)? updateBalance,
+  }) {
+    return updateBalance?.call(balance);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userId)? load,
+    TResult Function(double balance)? updateBalance,
+    required TResult orElse(),
+  }) {
+    if (updateBalance != null) {
+      return updateBalance(balance);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Load value) load,
+    required TResult Function(_UpdateBalance value) updateBalance,
+  }) {
+    return updateBalance(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Load value)? load,
+    TResult? Function(_UpdateBalance value)? updateBalance,
+  }) {
+    return updateBalance?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Load value)? load,
+    TResult Function(_UpdateBalance value)? updateBalance,
+    required TResult orElse(),
+  }) {
+    if (updateBalance != null) {
+      return updateBalance(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateBalance implements AccountEvent {
+  const factory _UpdateBalance(final double balance) = _$UpdateBalanceImpl;
+
+  double get balance;
+  @JsonKey(ignore: true)
+  _$$UpdateBalanceImplCopyWith<_$UpdateBalanceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

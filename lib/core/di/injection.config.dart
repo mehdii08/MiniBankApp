@@ -25,6 +25,8 @@ import 'package:mini_bank_app/features/account/domain/repositories/account_repos
     as _i261;
 import 'package:mini_bank_app/features/account/domain/usecases/get_balance.dart'
     as _i765;
+import 'package:mini_bank_app/features/account/domain/usecases/watch_balance.dart'
+    as _i497;
 import 'package:mini_bank_app/features/auth/application/auth_bloc.dart'
     as _i230;
 import 'package:mini_bank_app/features/auth/data/repositories/auth_repository_hive.dart'
@@ -53,6 +55,8 @@ import 'package:mini_bank_app/features/transactions/domain/usecases/get_recent_t
     as _i20;
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_transactions_page.dart'
     as _i394;
+import 'package:mini_bank_app/features/transactions/domain/usecases/watch_transactions.dart'
+    as _i291;
 import 'package:mini_bank_app/features/transfer/application/transfer_form_cubit.dart'
     as _i799;
 import 'package:mini_bank_app/features/transfer/domain/usecases/submit_transfer.dart'
@@ -85,6 +89,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i20.GetRecentTransactions(gh<_i267.TransactionRepository>()));
     gh.factory<_i394.GetTransactionsPage>(
         () => _i394.GetTransactionsPage(gh<_i267.TransactionRepository>()));
+    gh.factory<_i291.WatchTransactions>(
+        () => _i291.WatchTransactions(gh<_i267.TransactionRepository>()));
     gh.factory<_i601.SubmitTransfer>(() => _i601.SubmitTransfer(
           gh<_i267.TransactionRepository>(),
           gh<_i261.AccountRepository>(),
@@ -93,20 +99,25 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i496.SettingsRepositoryHive(gh<_i979.HiveInterface>()));
     gh.factory<_i765.GetBalance>(
         () => _i765.GetBalance(gh<_i261.AccountRepository>()));
+    gh.factory<_i497.WatchBalance>(
+        () => _i497.WatchBalance(gh<_i261.AccountRepository>()));
+    gh.lazySingleton<_i458.AccountBloc>(() => _i458.AccountBloc(
+          gh<_i765.GetBalance>(),
+          gh<_i497.WatchBalance>(),
+        ));
+    gh.factory<_i928.TransactionsBloc>(() => _i928.TransactionsBloc(
+          gh<_i20.GetRecentTransactions>(),
+          gh<_i394.GetTransactionsPage>(),
+          gh<_i291.WatchTransactions>(),
+        ));
     gh.factory<_i799.TransferFormCubit>(
         () => _i799.TransferFormCubit(gh<_i601.SubmitTransfer>()));
     gh.factory<_i334.Login>(() => _i334.Login(gh<_i582.AuthRepository>()));
     gh.factory<_i985.Logout>(() => _i985.Logout(gh<_i582.AuthRepository>()));
-    gh.factory<_i928.TransactionsBloc>(() => _i928.TransactionsBloc(
-          gh<_i20.GetRecentTransactions>(),
-          gh<_i394.GetTransactionsPage>(),
-        ));
     gh.factory<_i374.LoadTheme>(
         () => _i374.LoadTheme(gh<_i808.SettingsRepository>()));
     gh.factory<_i374.ToggleTheme>(
         () => _i374.ToggleTheme(gh<_i808.SettingsRepository>()));
-    gh.singleton<_i458.AccountBloc>(
-        () => _i458.AccountBloc(gh<_i765.GetBalance>()));
     gh.lazySingleton<_i230.AuthBloc>(() => _i230.AuthBloc(
           gh<_i334.Login>(),
           gh<_i985.Logout>(),

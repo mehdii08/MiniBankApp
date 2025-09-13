@@ -6,6 +6,7 @@ abstract interface class TransactionRepository {
   Future<List<Transaction>> getPage({required int page, int pageSize = kTransactionsPageSize});
   Future<void> add(Transaction tx);
   Future<int> count();
+  Stream<void> watch();
 }
 
 
