@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_bank_app/features/auth/application/auth_bloc.dart';
 import 'package:mini_bank_app/core/bloc/bloc_actions_listener.dart';
+import 'package:mini_bank_app/core/widgets/app_text.dart';
+import 'package:mini_bank_app/core/widgets/app_text_field.dart';
+import 'package:mini_bank_app/core/widgets/app_button.dart';
+import 'package:mini_bank_app/l10n/l10n.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,51 +27,61 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final strings = S.of(context);
     return BlocActionsListener<AuthBloc>(
       child: Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            failure: (msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg))),
-            orElse: () {},
-          );
-        },
-        builder: (context, state) {
-          final bool loading = state.maybeWhen(loading: () => true, orElse: () => false);
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: <Widget>[
-                TextField(
-                  controller: _email,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                ),
-                const SizedBox(height: 12),
-                TextField(
-                  controller: _password,
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: loading
-                        ? null
-                        : () {
-                            context.read<AuthBloc>().add(AuthEvent.loginRequested(
-                                  email: _email.text.trim(),
-                                  password: _password.text.trim(),
-                                ));
-                          },
-                    child: loading ? const CircularProgressIndicator.adaptive() : const Text('Sign in'),
+      backgroundColor: colorScheme.surface,
+      body: SafeArea(
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            final bool loading = state.maybeWhen(loading: () => true, orElse: () => false);
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 32),
+                  Icon(Icons.account_balance, size: 72, color: colorScheme.primary),
+                  const SizedBox(height: 12),
+                  AppText(text: strings.appTitle, color: colorScheme.primary, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 32),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        AppTextField(
+                          controller: _email,
+                          hintText: strings.emailLabel,
+                        ),
+                        const SizedBox(height: 12),
+                        AppTextField(
+                          controller: _password,
+                          hintText: strings.passwordLabel,
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 32),
+                        AppButton(
+                          title: strings.loginButton,
+                          onTap: loading
+                              ? null
+                              : () {
+                                  context.read<AuthBloc>().add(AuthEvent.loginRequested(
+                                        email: _email.text.trim(),
+                                        password: _password.text.trim(),
+                                      ));
+                                },
+                          backgroundColor: colorScheme.primary,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     ));
   }

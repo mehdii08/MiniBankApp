@@ -8,6 +8,8 @@ import 'package:mini_bank_app/features/auth/domain/entities/user.dart' as domain
 import 'package:mini_bank_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:mini_bank_app/features/auth/domain/usecases/login.dart';
 import 'package:mini_bank_app/features/auth/domain/usecases/logout.dart';
+import 'package:mini_bank_app/core/utils/string_validators.dart';
+import 'package:mini_bank_app/core/constants/messages.dart';
 
 import '../domain/entities/user.dart';
 
@@ -51,18 +53,35 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onLoginRequested(_LoginRequested event, Emitter<AuthState> emit) async {
+    final String email = event.email.trim();
+    final String password = event.password.trim();
+
+    if (!email.isValidEmail) {
+      emit(const AuthState.failure(MessageKeys.invalidEmail));
+      emitAction(const UiAction.showSnackbar(message: MessageKeys.invalidEmail));
+      emit(const AuthState.unauthenticated());
+      return;
+    }
+
+    if (!password.isValidPassword) {
+      emit(const AuthState.failure(MessageKeys.passwordTooShort));
+      emitAction(const UiAction.showSnackbar(message: MessageKeys.passwordTooShort));
+      emit(const AuthState.unauthenticated());
+      return;
+    }
+
     emit(const AuthState.loading());
-    final bool ok = await _login(LoginParams(email: event.email, password: event.password));
+    final bool ok = await _login(LoginParams(email: email, password: password));
     if (!ok) {
-      emit(const AuthState.failure('Invalid credentials'));
-      emitAction(const UiAction.showSnackbar(message: 'Invalid credentials'));
+      emit(const AuthState.failure(MessageKeys.invalidCredentials));
+      emitAction(const UiAction.showSnackbar(message: MessageKeys.invalidCredentials));
       emit(const AuthState.unauthenticated());
       return;
     }
     final domain.User? user = await _authRepository.currentUser();
     if (user == null) {
-      emit(const AuthState.failure('User not found'));
-      emitAction(const UiAction.showSnackbar(message: 'User not found'));
+      emit(const AuthState.failure(MessageKeys.userNotFound));
+      emitAction(const UiAction.showSnackbar(message: MessageKeys.userNotFound));
       emit(const AuthState.unauthenticated());
     } else {
       _userIsAuthenticated(user, emit);

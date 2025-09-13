@@ -74,11 +74,11 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: S.supportedLocales,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, primary: Colors.blue),
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark),
             useMaterial3: true,
           ),
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,

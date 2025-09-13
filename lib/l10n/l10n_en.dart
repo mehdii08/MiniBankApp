@@ -67,4 +67,22 @@ class SEn extends S {
 
   @override
   String get retry => 'Retry';
+
+  @override
+  String get invalidEmail => 'Please enter a valid email';
+
+  @override
+  String get passwordTooShort => 'Password must be at least 6 characters';
+
+  @override
+  String get invalidCredentials => 'Invalid credentials';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get currency => 'USDT';
+
+  @override
+  String get userNotFound => 'User not found';
 }
