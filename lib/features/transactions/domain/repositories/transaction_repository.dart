@@ -5,7 +5,12 @@ import 'package:mini_bank_app/core/errors/failure.dart';
 
 abstract interface class TransactionRepository {
   Future<Either<Failure, List<Transaction>>> getRecent({int count = 5});
-  Future<Either<Failure, List<Transaction>>> getPage({required int page, int pageSize = kTransactionsPageSize});
+  Future<Either<Failure, List<Transaction>>> getPage({
+    required int page,
+    int pageSize = kTransactionsPageSize,
+    String query = '',
+    TransactionType? type,
+  });
   Future<Either<Failure, bool>> add(Transaction tx);
   Future<Either<Failure, int>> count();
   Stream<void> watch();

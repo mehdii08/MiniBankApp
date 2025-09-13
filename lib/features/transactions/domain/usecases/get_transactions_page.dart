@@ -12,13 +12,20 @@ class GetTransactionsPage implements UseCase<Either<Failure, List<Transaction>>,
 
   @override
   Future<Either<Failure, List<Transaction>>> call(PageParams params) =>
-      _repo.getPage(page: params.page, pageSize: params.pageSize);
+      _repo.getPage(
+        page: params.page,
+        pageSize: params.pageSize,
+        query: params.query,
+        type: params.type,
+      );
 }
 
 class PageParams {
-  PageParams({required this.page, required this.pageSize});
+  PageParams({required this.page, required this.pageSize, this.query = '', this.type});
   final int page;
   final int pageSize;
+  final String query;
+  final TransactionType? type;
 }
 
 

@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
     return FocusDetector(
       onVisibilityGained: (){
         context.read<AccountBloc>().add(AccountEvent.load());
-        context.read<TransactionsBloc>().add(const TransactionsEvent.loadRecent());
+        context.read<TransactionsBloc>().add(const LoadRecent());
       },
       child: BlocActionsListener<AuthBloc>(
         child: Scaffold(
@@ -108,13 +108,10 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     child: BlocBuilder<TransactionsBloc, TransactionsState>(
                       builder: (context, state) {
-                        if(state.isLoading()){
+                        if(state.isLoading){
                           return Center(child: CircularProgressIndicator(color: colorScheme.onPrimary));
                         }
-                        final List<domain.Transaction> items = state.maybeWhen(
-                          recentLoaded: (items) => items,
-                          orElse: () => const <domain.Transaction>[],
-                        );
+                        final List<domain.Transaction> items = state.recentItems;
                         if (items.isEmpty) {
                           return Center(child: Text(strings.emptyState, style: TextStyle(color: colorScheme.onPrimary)));
                         }

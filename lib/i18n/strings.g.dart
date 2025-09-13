@@ -180,6 +180,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get amountInvalid => 'Enter a valid amount';
 	String get insufficientBalance => 'Insufficient balance';
 	String get transferSuccessful => 'Transfer successful';
+	String get searchHint => 'Search by name or description';
+	String get type => 'Type';
+	String get all => 'All';
+	String get credit => 'Credit';
+	String get debit => 'Debit';
 }
 
 /// Flat map(s) containing all translations.
@@ -221,6 +226,11 @@ extension on Translations {
 			case 'amountInvalid': return 'Enter a valid amount';
 			case 'insufficientBalance': return 'Insufficient balance';
 			case 'transferSuccessful': return 'Transfer successful';
+			case 'searchHint': return 'Search by name or description';
+			case 'type': return 'Type';
+			case 'all': return 'All';
+			case 'credit': return 'Credit';
+			case 'debit': return 'Debit';
 			default: return null;
 		}
 	}

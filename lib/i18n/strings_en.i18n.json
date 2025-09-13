@@ -25,5 +25,10 @@
   "invalidCredentials": "Invalid credentials",
   "logout": "Logout",
   "currency": "USDT",
-  "userNotFound": "User not found"
+  "userNotFound": "User not found",
+  "searchHint": "Search by name or description",
+  "type": "Type",
+  "all": "All",
+  "credit": "Credit",
+  "debit": "Debit"
 }
