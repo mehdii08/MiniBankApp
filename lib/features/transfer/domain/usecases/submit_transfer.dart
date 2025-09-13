@@ -4,15 +4,17 @@ import 'package:mini_bank_app/features/account/domain/repositories/account_repos
 import 'package:mini_bank_app/features/transactions/domain/entities/transaction.dart';
 import 'package:mini_bank_app/features/transactions/domain/repositories/transaction_repository.dart';
 import 'package:mini_bank_app/features/transfer/domain/entities/transfer_request.dart';
+import 'package:mini_bank_app/core/utils/either.dart';
+import 'package:mini_bank_app/core/errors/failure.dart';
 
 @injectable
-class SubmitTransfer implements UseCase<void, SubmitTransferParams> {
+class SubmitTransfer implements UseCase<Either<Failure, bool>, SubmitTransferParams> {
   SubmitTransfer(this._transactions, this._accounts);
   final TransactionRepository _transactions;
   final AccountRepository _accounts;
 
   @override
-  Future<void> call(SubmitTransferParams params) async {
+  Future<Either<Failure, bool>> call(SubmitTransferParams params) async {
     // Add a debit transaction and update account balance
     final Transaction tx = Transaction(
       id: params.id,
@@ -21,8 +23,11 @@ class SubmitTransfer implements UseCase<void, SubmitTransferParams> {
       amount: params.request.amount,
       type: TransactionType.debit,
     );
-    await _transactions.add(tx);
-    await _accounts.updateBalance(params.newBalance);
+    final r1 = await _transactions.add(tx);
+    final r2 = await _accounts.updateBalance(params.newBalance);
+    if (r1.isLeft) return Either.left(r1.left);
+    if (r2.isLeft) return Either.left(r2.left);
+    return const Either.right(true);
   }
 }
 

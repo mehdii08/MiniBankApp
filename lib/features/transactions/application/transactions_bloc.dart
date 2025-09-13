@@ -46,15 +46,23 @@ class TransactionsBloc extends BaseBloc<TransactionsEvent, TransactionsState> {
 
   Future<void> _onLoadRecent(_LoadRecent event, Emitter<TransactionsState> emit) async {
     emit(const TransactionsState.loading());
-    final items = await _getRecent();
-    emit(TransactionsState.recentLoaded(items));
+    final res = await _getRecent();
+    res.fold(
+      (l) => emit(TransactionsState.failure(l.message)),
+      (r) => emit(TransactionsState.recentLoaded(r)),
+    );
   }
 
   Future<void> _onLoadPage(_LoadPage event, Emitter<TransactionsState> emit) async {
     emit(const TransactionsState.loading());
-    final items = await _getPage(PageParams(page: event.page, pageSize: kTransactionsPageSize));
-    final bool hasMore = items.length == kTransactionsPageSize;
-    emit(TransactionsState.pageLoaded(items: items, page: event.page, hasMore: hasMore));
+    final res = await _getPage(PageParams(page: event.page, pageSize: kTransactionsPageSize));
+    res.fold(
+      (l) => emit(TransactionsState.failure(l.message)),
+      (r) {
+        final bool hasMore = r.length == kTransactionsPageSize;
+        emit(TransactionsState.pageLoaded(items: r, page: event.page, hasMore: hasMore));
+      },
+    );
   }
 }
 

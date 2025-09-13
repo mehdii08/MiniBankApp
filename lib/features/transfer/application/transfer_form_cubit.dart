@@ -58,8 +58,12 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
   }
 
   Future<void> submit() async {
-    final currentBalance = await _getBalance();
-    if(currentBalance == null) return;
+    final balRes = await _getBalance();
+    if (balRes.isLeft) {
+      emitAction(UiAction.showSnackbar(message: balRes.left.message));
+      return;
+    }
+    final currentBalance = balRes.right;
 
 
     if (state.submissionStatus == SubmissionStatus.inProgress) return;
@@ -92,14 +96,19 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
       amount: amount,
     );
     emit(state.copyWith(submissionStatus: SubmissionStatus.inProgress));
-    await _submit(SubmitTransferParams(
+    final res = await _submit(SubmitTransferParams(
       id: 'tx_${DateTime.now().microsecondsSinceEpoch}',
       newBalance: newBalance,
       request: req,
     ));
-    emit(state.copyWith(submissionStatus: SubmissionStatus.success));
-    emitAction(const UiAction.showSnackbar(message: 'Transfer successful'));
-    emitAction(UiAction.pop());
+    res.fold((l) {
+      emit(state.copyWith(submissionStatus: SubmissionStatus.failure, error: l.message));
+      emitAction(UiAction.showSnackbar(message: l.message));
+    }, (r) {
+      emit(state.copyWith(submissionStatus: SubmissionStatus.success));
+      emitAction(const UiAction.showSnackbar(message: 'Transfer successful'));
+      emitAction(UiAction.pop());
+    });
   }
 
 }

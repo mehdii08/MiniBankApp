@@ -5,8 +5,8 @@ import 'package:mini_bank_app/features/account/data/mappers/account_mapper.dart'
 import 'package:mini_bank_app/features/account/data/models/account_model.dart';
 import 'package:mini_bank_app/features/account/domain/entities/account.dart';
 import 'package:mini_bank_app/features/account/domain/repositories/account_repository.dart';
-
-import '../../../../core/constants/keys.dart';
+import 'package:mini_bank_app/core/utils/either.dart';
+import 'package:mini_bank_app/core/errors/failure.dart';
 
 @LazySingleton(as: AccountRepository)
 class AccountRepositoryHive implements AccountRepository {
@@ -14,30 +14,31 @@ class AccountRepositoryHive implements AccountRepository {
   final HiveInterface _hive;
 
   @override
-  Future<Account?> getCurrentUserAccount() async {
-    final String? userId = _hive.box(kSettingsBox).get(kCurrentUserIdKey) as String?;
-    if(userId == null) return null;
+  Future<Either<Failure, Account>> getCurrentUserAccount() async {
     final Box<dynamic> box = _hive.box(kAccountBox);
-    for (final dynamic key in box.keys) {
-      final AccountModel acc = box.get(key) as AccountModel;
-      if (acc.userId == userId) return acc.toDomain();
-    }
-    return null;
+    if (box.isEmpty) return const Either.left(Failure('Account not found'));
+    final AccountModel acc = box.values.first as AccountModel;
+    return Either<Failure, Account>.right(acc.toDomain());
   }
 
   @override
-  Future<void> updateBalance(double newBalance) async {
-    final account = await getCurrentUserAccount();
-    if(account == null) return;
+  Future<Either<Failure, bool>> updateBalance(double newBalance) async {
     final Box<dynamic> box = _hive.box(kAccountBox);
-    final AccountModel? acc = box.get(account.id) as AccountModel?;
-    if (acc == null) return;
-    await box.put(account.id, acc.copyWith(balance: newBalance));
+    if (box.isEmpty) return const Either.left(Failure('Account not found'));
+    final AccountModel acc = box.values.first as AccountModel;
+    await box.put(acc.id, acc.copyWith(balance: newBalance));
+    return const Either.right(true);
   }
 
   @override
   Stream<double> watch() {
-    return _hive.box(kAccountBox).watch().map((event) => (event.value as AccountModel).balance);
+    // return current balance when it changes; pick the first account for simplicity
+    final Box<dynamic> box = _hive.box(kAccountBox);
+    return box.watch().map((_) {
+      if (box.isEmpty) return 0.0;
+      final AccountModel acc = box.values.first as AccountModel;
+      return acc.balance;
+    });
   }
 }
 

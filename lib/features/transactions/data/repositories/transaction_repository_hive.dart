@@ -6,6 +6,8 @@ import 'package:mini_bank_app/features/transactions/data/mappers/transaction_map
 import 'package:mini_bank_app/features/transactions/data/models/transaction_model.dart';
 import 'package:mini_bank_app/features/transactions/domain/entities/transaction.dart';
 import 'package:mini_bank_app/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:mini_bank_app/core/utils/either.dart';
+import 'package:mini_bank_app/core/errors/failure.dart';
 
 @LazySingleton(as: TransactionRepository)
 class TransactionRepositoryHive implements TransactionRepository {
@@ -19,27 +21,32 @@ class TransactionRepositoryHive implements TransactionRepository {
   }
 
   @override
-  Future<List<Transaction>> getRecent({int count = 5}) async {
-    return _sortedAll().take(count).map((e) => e.toDomain()).toList();
+  Future<Either<Failure, List<Transaction>>> getRecent({int count = 5}) async {
+    return Either<Failure, List<Transaction>>.right(
+      _sortedAll().take(count).map((e) => e.toDomain()).toList(),
+    );
   }
 
   @override
-  Future<List<Transaction>> getPage({required int page, int pageSize = kTransactionsPageSize}) async {
+  Future<Either<Failure, List<Transaction>>> getPage({required int page, int pageSize = kTransactionsPageSize}) async {
     final List<TransactionModel> all = _sortedAll();
     final int start = (page - 1) * pageSize;
-    if (start >= all.length) return <Transaction>[];
+    if (start >= all.length) return const Either.left(Failure('No more items'));
     final int end = (start + pageSize).clamp(0, all.length);
-    return all.sublist(start, end).map((e) => e.toDomain()).toList();
+    return Either<Failure, List<Transaction>>.right(
+      all.sublist(start, end).map((e) => e.toDomain()).toList(),
+    );
   }
 
   @override
-  Future<void> add(Transaction tx) async {
+  Future<Either<Failure, bool>> add(Transaction tx) async {
     await _hive.box(kTransactionsBox).put(tx.id, tx.toDto());
+    return const Either.right(true);
   }
 
   @override
-  Future<int> count() async {
-    return _hive.box(kTransactionsBox).length;
+  Future<Either<Failure, int>> count() async {
+    return Either<Failure, int>.right(_hive.box(kTransactionsBox).length);
   }
 
   @override

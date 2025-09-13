@@ -38,12 +38,12 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
   Future<void> _onLoad(_Load event, Emitter<AccountState> emit) async {
     emit(const AccountState.loading());
-    final double? balance = await _getBalance();
-    if (balance == null) {
+    final res = await _getBalance();
+    res.fold((l){
       emit(const AccountState.failure('Account not found'));
-    } else {
-      emit(AccountState.loaded(balance));
-    }
+    }, (r){
+      emit(AccountState.loaded(r));
+    });
   }
 
   Future<void> _updateBalance(_UpdateBalance event, Emitter<AccountState> emit) async {
