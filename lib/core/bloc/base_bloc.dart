@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:mini_bank_app/core/bloc/ui_action.dart';
 
 abstract class BaseBloc<E, S> extends Bloc<E, S> {
-  BaseBloc(S initialState) : super(initialState);
+  BaseBloc(super.initialState);
 
   final StreamController<UiAction> _actions = StreamController<UiAction>.broadcast();
 

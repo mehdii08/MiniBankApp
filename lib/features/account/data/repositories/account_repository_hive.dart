@@ -8,6 +8,8 @@ import 'package:mini_bank_app/features/account/domain/repositories/account_repos
 import 'package:mini_bank_app/core/utils/either.dart';
 import 'package:mini_bank_app/core/errors/failure.dart';
 
+import '../../../../i18n/strings.g.dart';
+
 @LazySingleton(as: AccountRepository)
 class AccountRepositoryHive implements AccountRepository {
   AccountRepositoryHive(this._hive);
@@ -16,7 +18,7 @@ class AccountRepositoryHive implements AccountRepository {
   @override
   Future<Either<Failure, Account>> getCurrentUserAccount() async {
     final Box<dynamic> box = _hive.box(kAccountBox);
-    if (box.isEmpty) return const Either.left(Failure('Account not found'));
+    if (box.isEmpty) return Either.left(Failure(t.accountNotFound));
     final AccountModel acc = box.values.first as AccountModel;
     return Either<Failure, Account>.right(acc.toDomain());
   }
@@ -24,7 +26,7 @@ class AccountRepositoryHive implements AccountRepository {
   @override
   Future<Either<Failure, bool>> updateBalance(double newBalance) async {
     final Box<dynamic> box = _hive.box(kAccountBox);
-    if (box.isEmpty) return const Either.left(Failure('Account not found'));
+    if (box.isEmpty) return Either.left(Failure(t.accountNotFound));
     final AccountModel acc = box.values.first as AccountModel;
     await box.put(acc.id, acc.copyWith(balance: newBalance));
     return const Either.right(true);
@@ -32,7 +34,6 @@ class AccountRepositoryHive implements AccountRepository {
 
   @override
   Stream<double> watch() {
-    // return current balance when it changes; pick the first account for simplicity
     final Box<dynamic> box = _hive.box(kAccountBox);
     return box.watch().map((_) {
       if (box.isEmpty) return 0.0;
