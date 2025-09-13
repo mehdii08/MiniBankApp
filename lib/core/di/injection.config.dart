@@ -105,14 +105,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i374.LoadTheme(gh<_i808.SettingsRepository>()));
     gh.factory<_i374.ToggleTheme>(
         () => _i374.ToggleTheme(gh<_i808.SettingsRepository>()));
-    gh.factory<_i458.AccountBloc>(
+    gh.singleton<_i458.AccountBloc>(
         () => _i458.AccountBloc(gh<_i765.GetBalance>()));
     gh.lazySingleton<_i230.AuthBloc>(() => _i230.AuthBloc(
           gh<_i334.Login>(),
           gh<_i985.Logout>(),
           gh<_i582.AuthRepository>(),
         ));
-    gh.factory<_i900.ThemeCubit>(() => _i900.ThemeCubit(
+    gh.singleton<_i900.ThemeCubit>(() => _i900.ThemeCubit(
           gh<_i374.LoadTheme>(),
           gh<_i374.ToggleTheme>(),
         ));

@@ -18,7 +18,7 @@ class AccountState with _$AccountState {
   const factory AccountState.failure(String message) = _Failure;
 }
 
-@injectable
+@singleton
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   AccountBloc(this._getBalance) : super(const AccountState.initial()) {
     on<_Load>(_onLoad);
