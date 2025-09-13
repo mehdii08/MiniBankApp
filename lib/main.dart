@@ -4,17 +4,56 @@ import 'package:mini_bank_app/l10n/l10n.dart';
 import 'package:mini_bank_app/core/di/di.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mini_bank_app/core/utils/hive_bootstrap.dart';
 import 'package:mini_bank_app/core/utils/hive_adapters.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_bank_app/features/auth/application/auth_bloc.dart';
+import 'package:mini_bank_app/features/account/application/account_bloc.dart';
+import 'package:mini_bank_app/features/transactions/application/transactions_bloc.dart';
+import 'package:mini_bank_app/features/transfer/application/transfer_form_cubit.dart';
+import 'package:mini_bank_app/features/settings/application/theme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   await configureDependencies();
   // Open app boxes via injected Hive instance
   final HiveInterface hive = getIt<HiveInterface>();
   await registerHiveAdapters(hive);
   await openAppBoxes(hive);
-  runApp(const MyApp());
+  runApp(const AppRoot());
+}
+
+class AppRoot extends StatefulWidget {
+  const AppRoot({super.key});
+
+  @override
+  State<AppRoot> createState() => _AppRootState();
+}
+
+class _AppRootState extends State<AppRoot> {
+  @override
+  void initState() {
+    super.initState();
+    // Kick off initial loads
+    getIt<AuthBloc>().add(const AuthEvent.appStarted());
+    getIt<ThemeCubit>().init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: <BlocProvider<dynamic>>[
+        BlocProvider<AuthBloc>.value(value: getIt<AuthBloc>()),
+        BlocProvider<ThemeCubit>.value(value: getIt<ThemeCubit>()),
+        BlocProvider<AccountBloc>.value(value: getIt<AccountBloc>()),
+        BlocProvider<TransactionsBloc>.value(value: getIt<TransactionsBloc>()),
+        BlocProvider<TransferFormCubit>.value(value: getIt<TransferFormCubit>()),
+      ],
+      child: const MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

@@ -6,6 +6,9 @@ import 'package:mini_bank_app/features/transactions/domain/entities/transaction.
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_recent_transactions.dart';
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_transactions_page.dart';
 
+import '../../../core/bloc/base_bloc.dart';
+import '../domain/entities/transaction.dart';
+
 part 'transactions_bloc.freezed.dart';
 
 @freezed
@@ -24,7 +27,7 @@ class TransactionsState with _$TransactionsState {
 }
 
 @injectable
-class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
+class TransactionsBloc extends BaseBloc<TransactionsEvent, TransactionsState> {
   TransactionsBloc(this._getRecent, this._getPage) : super(const TransactionsState.initial()) {
     on<_LoadRecent>(_onLoadRecent);
     on<_LoadPage>(_onLoadPage);

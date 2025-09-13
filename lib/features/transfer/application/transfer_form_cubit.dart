@@ -1,7 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:formz/formz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mini_bank_app/core/bloc/base_bloc.dart';
+import 'package:mini_bank_app/core/bloc/ui_action.dart';
 import 'package:mini_bank_app/features/transfer/domain/entities/transfer_request.dart';
 import 'package:mini_bank_app/features/transfer/domain/usecases/submit_transfer.dart';
 
@@ -45,7 +46,7 @@ class TransferFormState with _$TransferFormState {
 }
 
 @injectable
-class TransferFormCubit extends Cubit<TransferFormState> {
+class TransferFormCubit extends BaseCubit<TransferFormState> {
   TransferFormCubit(this._submit) : super(const TransferFormState());
 
   final SubmitTransfer _submit;
@@ -88,6 +89,7 @@ class TransferFormCubit extends Cubit<TransferFormState> {
       request: req,
     ));
     emit(state.copyWith(submissionStatus: SubmissionStatus.success));
+    emitAction(const UiAction.showSnackbar(message: 'Transfer successful'));
   }
 
   bool _validate(TransferFormState s) =>

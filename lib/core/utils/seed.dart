@@ -15,7 +15,7 @@ Future<void> seedInitialData(HiveInterface hive) async {
 
   // Create a mock user
   const String userId = 'user_1';
-  const String email = 'user@example.com';
+  const String email = 'user@test.com';
   const String name = 'Mini User';
   final user = UserModel(id: userId, email: email, name: name);
   await hive.box(kUsersBox).put(userId, user);

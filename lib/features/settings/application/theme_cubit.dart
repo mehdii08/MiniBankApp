@@ -1,9 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mini_bank_app/core/bloc/base_bloc.dart';
 import 'package:mini_bank_app/features/settings/domain/usecases/theme_usecases.dart';
 
 @injectable
-class ThemeCubit extends Cubit<bool> {
+class ThemeCubit extends BaseCubit<bool> {
   ThemeCubit(this._load, this._toggle) : super(false);
   final LoadTheme _load;
   final ToggleTheme _toggle;

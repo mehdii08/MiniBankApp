@@ -107,7 +107,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i374.ToggleTheme(gh<_i808.SettingsRepository>()));
     gh.factory<_i458.AccountBloc>(
         () => _i458.AccountBloc(gh<_i765.GetBalance>()));
-    gh.factory<_i230.AuthBloc>(() => _i230.AuthBloc(
+    gh.lazySingleton<_i230.AuthBloc>(() => _i230.AuthBloc(
           gh<_i334.Login>(),
           gh<_i985.Logout>(),
           gh<_i582.AuthRepository>(),

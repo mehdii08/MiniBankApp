@@ -12,8 +12,8 @@ class AuthRepositoryHive implements AuthRepository {
   AuthRepositoryHive(this._hive);
   final HiveInterface _hive;
 
-  static const String _hardcodedEmail = 'user@example.com';
-  static const String _hardcodedPassword = 'P@ssw0rd';
+  static const String _hardcodedEmail = 'user@test.com';
+  static const String _hardcodedPassword = '123456';
 
   @override
   Future<bool> login(String email, String password) async {
