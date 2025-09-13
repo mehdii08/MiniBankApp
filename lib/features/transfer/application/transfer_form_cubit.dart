@@ -9,6 +9,8 @@ import 'package:mini_bank_app/core/utils/string_validators.dart';
 import 'package:mini_bank_app/features/transfer/domain/entities/transfer_request.dart';
 import 'package:mini_bank_app/features/transfer/domain/usecases/submit_transfer.dart';
 
+import '../../account/domain/usecases/get_balance.dart';
+
 part 'transfer_form_cubit.freezed.dart';
 
 @freezed
@@ -28,9 +30,10 @@ class TransferFormState with _$TransferFormState {
 
 @injectable
 class TransferFormCubit extends BaseCubit<TransferFormState> {
-  TransferFormCubit(this._submit) : super(const TransferFormState());
+  TransferFormCubit(this._submit, this._getBalance) : super(const TransferFormState());
 
   final SubmitTransfer _submit;
+  final GetBalance _getBalance;
 
   void beneficiaryChanged(String v) {
     emit(state.copyWith(beneficiary: v));
@@ -54,7 +57,11 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
     );
   }
 
-  Future<void> submit({required String accountId, required double currentBalance}) async {
+  Future<void> submit() async {
+    final currentBalance = await _getBalance();
+    if(currentBalance == null) return;
+
+
     if (state.submissionStatus == SubmissionStatus.inProgress) return;
     _clearErrors();
     int errorCount = 0;
@@ -87,7 +94,6 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
     emit(state.copyWith(submissionStatus: SubmissionStatus.inProgress));
     await _submit(SubmitTransferParams(
       id: 'tx_${DateTime.now().microsecondsSinceEpoch}',
-      accountId: accountId,
       newBalance: newBalance,
       request: req,
     ));

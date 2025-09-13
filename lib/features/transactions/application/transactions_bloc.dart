@@ -5,7 +5,6 @@ import 'package:mini_bank_app/core/constants/pagination.dart';
 import 'package:mini_bank_app/features/transactions/domain/entities/transaction.dart' as domain;
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_recent_transactions.dart';
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_transactions_page.dart';
-import 'package:mini_bank_app/features/transactions/domain/repositories/transaction_repository.dart';
 import 'package:mini_bank_app/features/transactions/domain/usecases/watch_transactions.dart';
 
 import '../../../core/bloc/base_bloc.dart';
@@ -26,6 +25,8 @@ class TransactionsState with _$TransactionsState {
   const factory TransactionsState.recentLoaded(List<domain.Transaction> items) = _RecentLoaded;
   const factory TransactionsState.pageLoaded({required List<domain.Transaction> items, required int page, required bool hasMore}) = _PageLoaded;
   const factory TransactionsState.failure(String message) = _Failure;
+
+  bool isLoading () => this is _Loading;
 }
 
 @injectable

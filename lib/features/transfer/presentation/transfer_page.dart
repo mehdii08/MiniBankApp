@@ -33,14 +33,6 @@ class _TransferPageState extends State<TransferPage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final strings = S.of(context);
-    context.watch<AuthBloc>().state;
-    String? accountId;
-    double currentBalance = 0;
-    // Fetch balance for validation display
-    context.select((AccountBloc b) => b.state).maybeWhen(
-      loaded: (b) => currentBalance = b,
-      orElse: () {},
-    );
     return BlocActionsListener<TransferFormCubit>(
       child: Scaffold(
       appBar: AppBar(title: Text(strings.transferTitle), leading: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back),)),
@@ -74,10 +66,7 @@ class _TransferPageState extends State<TransferPage> {
                 const SizedBox(height: 24),
                 AppButton(
                   title: strings.submitButton,
-                  onTap: () => context.read<TransferFormCubit>().submit(
-                    accountId: accountId ?? 'acc_1',
-                    currentBalance: currentBalance,
-                  ),
+                  onTap: () => context.read<TransferFormCubit>().submit(),
                   backgroundColor: colorScheme.primary,
                 ),
               ],

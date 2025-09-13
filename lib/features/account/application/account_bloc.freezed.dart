@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AccountEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId) load,
+    required TResult Function() load,
     required TResult Function(double balance) updateBalance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId)? load,
+    TResult? Function()? load,
     TResult? Function(double balance)? updateBalance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId)? load,
+    TResult Function()? load,
     TResult Function(double balance)? updateBalance,
     required TResult orElse(),
   }) =>
@@ -79,8 +79,6 @@ abstract class _$$LoadImplCopyWith<$Res> {
   factory _$$LoadImplCopyWith(
           _$LoadImpl value, $Res Function(_$LoadImpl) then) =
       __$$LoadImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String userId});
 }
 
 /// @nodoc
@@ -89,78 +87,54 @@ class __$$LoadImplCopyWithImpl<$Res>
     implements _$$LoadImplCopyWith<$Res> {
   __$$LoadImplCopyWithImpl(_$LoadImpl _value, $Res Function(_$LoadImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = null,
-  }) {
-    return _then(_$LoadImpl(
-      null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$LoadImpl implements _Load {
-  const _$LoadImpl(this.userId);
-
-  @override
-  final String userId;
+  const _$LoadImpl();
 
   @override
   String toString() {
-    return 'AccountEvent.load(userId: $userId)';
+    return 'AccountEvent.load()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadImpl &&
-            (identical(other.userId, userId) || other.userId == userId));
+        (other.runtimeType == runtimeType && other is _$LoadImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadImplCopyWith<_$LoadImpl> get copyWith =>
-      __$$LoadImplCopyWithImpl<_$LoadImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId) load,
+    required TResult Function() load,
     required TResult Function(double balance) updateBalance,
   }) {
-    return load(userId);
+    return load();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId)? load,
+    TResult? Function()? load,
     TResult? Function(double balance)? updateBalance,
   }) {
-    return load?.call(userId);
+    return load?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId)? load,
+    TResult Function()? load,
     TResult Function(double balance)? updateBalance,
     required TResult orElse(),
   }) {
     if (load != null) {
-      return load(userId);
+      return load();
     }
     return orElse();
   }
@@ -198,12 +172,7 @@ class _$LoadImpl implements _Load {
 }
 
 abstract class _Load implements AccountEvent {
-  const factory _Load(final String userId) = _$LoadImpl;
-
-  String get userId;
-  @JsonKey(ignore: true)
-  _$$LoadImplCopyWith<_$LoadImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _Load() = _$LoadImpl;
 }
 
 /// @nodoc
@@ -270,7 +239,7 @@ class _$UpdateBalanceImpl implements _UpdateBalance {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId) load,
+    required TResult Function() load,
     required TResult Function(double balance) updateBalance,
   }) {
     return updateBalance(balance);
@@ -279,7 +248,7 @@ class _$UpdateBalanceImpl implements _UpdateBalance {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId)? load,
+    TResult? Function()? load,
     TResult? Function(double balance)? updateBalance,
   }) {
     return updateBalance?.call(balance);
@@ -288,7 +257,7 @@ class _$UpdateBalanceImpl implements _UpdateBalance {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId)? load,
+    TResult Function()? load,
     TResult Function(double balance)? updateBalance,
     required TResult orElse(),
   }) {

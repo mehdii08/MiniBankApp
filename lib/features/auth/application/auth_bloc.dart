@@ -44,12 +44,12 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
 
   Future<void> _onAppStarted(_AppStarted event, Emitter<AuthState> emit) async {
     emit(const AuthState.loading());
-    final domain.User? user = await _authRepository.currentUser();
-    if (user == null) {
+    final res = await _authRepository.currentUser();
+    res.fold((l) {
       emit(const AuthState.unauthenticated());
-    } else {
-      _userIsAuthenticated(user, emit);
-    }
+    }, (r) {
+      _userIsAuthenticated(r, emit);
+    });
   }
 
   Future<void> _onLoginRequested(_LoginRequested event, Emitter<AuthState> emit) async {
@@ -71,21 +71,20 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     }
 
     emit(const AuthState.loading());
-    final bool ok = await _login(LoginParams(email: email, password: password));
-    if (!ok) {
+    final loginRes = await _login(LoginParams(email: email, password: password));
+    if (loginRes.isLeft) {
       emit(const AuthState.failure(MessageKeys.invalidCredentials));
       emitAction(const UiAction.showSnackbar(message: MessageKeys.invalidCredentials));
       emit(const AuthState.unauthenticated());
       return;
     }
-    final domain.User? user = await _authRepository.currentUser();
-    if (user == null) {
-      emit(const AuthState.failure(MessageKeys.userNotFound));
-      emitAction(const UiAction.showSnackbar(message: MessageKeys.userNotFound));
+    final res = await _authRepository.currentUser();
+    res.fold((l) {
       emit(const AuthState.unauthenticated());
-    } else {
-      _userIsAuthenticated(user, emit);
-    }
+      emitAction(UiAction.showSnackbar(message: l.message));
+    }, (r) {
+      _userIsAuthenticated(r, emit);
+    });
   }
 
   _userIsAuthenticated(domain.User user, Emitter<AuthState> emit) {

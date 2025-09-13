@@ -411,6 +411,8 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl implements _Initial {
   const _$InitialImpl();
 
+  bool isLoading () => false;
+
   @override
   String toString() {
     return 'TransactionsState.initial()';
@@ -533,6 +535,8 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 class _$LoadingImpl implements _Loading {
   const _$LoadingImpl();
+
+  bool isLoading () => true;
 
   @override
   String toString() {
@@ -671,6 +675,8 @@ class __$$RecentLoadedImplCopyWithImpl<$Res>
 
 class _$RecentLoadedImpl implements _RecentLoaded {
   const _$RecentLoadedImpl(final List<Transaction> items) : _items = items;
+
+  bool isLoading () => false;
 
   final List<Transaction> _items;
   @override
@@ -847,6 +853,8 @@ class _$PageLoadedImpl implements _PageLoaded {
       required this.hasMore})
       : _items = items;
 
+  bool isLoading () => false;
+
   final List<Transaction> _items;
   @override
   List<Transaction> get items {
@@ -1021,6 +1029,8 @@ class _$FailureImpl implements _Failure {
 
   @override
   final String message;
+
+  bool isLoading () => false;
 
   @override
   String toString() {

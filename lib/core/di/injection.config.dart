@@ -87,10 +87,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i534.AuthRepositoryHive(gh<_i979.HiveInterface>()));
     gh.factory<_i20.GetRecentTransactions>(
         () => _i20.GetRecentTransactions(gh<_i267.TransactionRepository>()));
-    gh.factory<_i394.GetTransactionsPage>(
-        () => _i394.GetTransactionsPage(gh<_i267.TransactionRepository>()));
     gh.factory<_i291.WatchTransactions>(
         () => _i291.WatchTransactions(gh<_i267.TransactionRepository>()));
+    gh.factory<_i394.GetTransactionsPage>(
+        () => _i394.GetTransactionsPage(gh<_i267.TransactionRepository>()));
     gh.factory<_i601.SubmitTransfer>(() => _i601.SubmitTransfer(
           gh<_i267.TransactionRepository>(),
           gh<_i261.AccountRepository>(),
@@ -110,10 +110,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i394.GetTransactionsPage>(),
           gh<_i291.WatchTransactions>(),
         ));
-    gh.factory<_i799.TransferFormCubit>(
-        () => _i799.TransferFormCubit(gh<_i601.SubmitTransfer>()));
     gh.factory<_i334.Login>(() => _i334.Login(gh<_i582.AuthRepository>()));
     gh.factory<_i985.Logout>(() => _i985.Logout(gh<_i582.AuthRepository>()));
+    gh.factory<_i799.TransferFormCubit>(() => _i799.TransferFormCubit(
+          gh<_i601.SubmitTransfer>(),
+          gh<_i765.GetBalance>(),
+        ));
     gh.factory<_i374.LoadTheme>(
         () => _i374.LoadTheme(gh<_i808.SettingsRepository>()));
     gh.factory<_i374.ToggleTheme>(

@@ -9,7 +9,7 @@ part 'account_bloc.freezed.dart';
 
 @freezed
 class AccountEvent with _$AccountEvent {
-  const factory AccountEvent.load(String userId) = _Load;
+  const factory AccountEvent.load() = _Load;
   const factory AccountEvent.updateBalance(double balance) = _UpdateBalance;
 }
 
@@ -38,7 +38,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
   Future<void> _onLoad(_Load event, Emitter<AccountState> emit) async {
     emit(const AccountState.loading());
-    final double? balance = await _getBalance(event.userId);
+    final double? balance = await _getBalance();
     if (balance == null) {
       emit(const AccountState.failure('Account not found'));
     } else {

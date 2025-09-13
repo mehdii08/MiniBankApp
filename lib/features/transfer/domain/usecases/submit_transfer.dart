@@ -22,19 +22,17 @@ class SubmitTransfer implements UseCase<void, SubmitTransferParams> {
       type: TransactionType.debit,
     );
     await _transactions.add(tx);
-    await _accounts.updateBalance(params.accountId, params.newBalance);
+    await _accounts.updateBalance(params.newBalance);
   }
 }
 
 class SubmitTransferParams {
   SubmitTransferParams({
     required this.id,
-    required this.accountId,
     required this.newBalance,
     required this.request,
   });
   final String id;
-  final String accountId;
   final double newBalance;
   final TransferRequest request;
 }

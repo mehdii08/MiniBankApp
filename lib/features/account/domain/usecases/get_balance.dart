@@ -4,13 +4,13 @@ import 'package:mini_bank_app/features/account/domain/entities/account.dart';
 import 'package:mini_bank_app/features/account/domain/repositories/account_repository.dart';
 
 @injectable
-class GetBalance implements UseCase<double?, String> {
+class GetBalance implements NoParamsUseCase<double?> {
   GetBalance(this._repo);
   final AccountRepository _repo;
 
   @override
-  Future<double?> call(String userId) async {
-    final Account? acc = await _repo.getAccountByUser(userId);
+  Future<double?> call() async {
+    final Account? acc = await _repo.getCurrentUserAccount();
     return acc?.balance;
   }
 }
