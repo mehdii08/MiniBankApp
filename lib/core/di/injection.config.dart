@@ -17,12 +17,16 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:mini_bank_app/core/di/hive_module.dart' as _i89;
 import 'package:mini_bank_app/core/di/l10n_module.dart' as _i8;
 import 'package:mini_bank_app/core/di/router_module.dart' as _i953;
+import 'package:mini_bank_app/features/account/application/account_bloc.dart'
+    as _i458;
 import 'package:mini_bank_app/features/account/data/repositories/account_repository_hive.dart'
     as _i252;
 import 'package:mini_bank_app/features/account/domain/repositories/account_repository.dart'
     as _i261;
 import 'package:mini_bank_app/features/account/domain/usecases/get_balance.dart'
     as _i765;
+import 'package:mini_bank_app/features/auth/application/auth_bloc.dart'
+    as _i230;
 import 'package:mini_bank_app/features/auth/data/repositories/auth_repository_hive.dart'
     as _i534;
 import 'package:mini_bank_app/features/auth/domain/repositories/auth_repository.dart'
@@ -31,12 +35,16 @@ import 'package:mini_bank_app/features/auth/domain/usecases/login.dart'
     as _i334;
 import 'package:mini_bank_app/features/auth/domain/usecases/logout.dart'
     as _i985;
+import 'package:mini_bank_app/features/settings/application/theme_cubit.dart'
+    as _i900;
 import 'package:mini_bank_app/features/settings/data/repositories/settings_repository_hive.dart'
     as _i496;
 import 'package:mini_bank_app/features/settings/domain/repositories/settings_repository.dart'
     as _i808;
 import 'package:mini_bank_app/features/settings/domain/usecases/theme_usecases.dart'
     as _i374;
+import 'package:mini_bank_app/features/transactions/application/transactions_bloc.dart'
+    as _i928;
 import 'package:mini_bank_app/features/transactions/data/repositories/transaction_repository_hive.dart'
     as _i751;
 import 'package:mini_bank_app/features/transactions/domain/repositories/transaction_repository.dart'
@@ -45,6 +53,8 @@ import 'package:mini_bank_app/features/transactions/domain/usecases/get_recent_t
     as _i20;
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_transactions_page.dart'
     as _i394;
+import 'package:mini_bank_app/features/transfer/application/transfer_form_cubit.dart'
+    as _i799;
 import 'package:mini_bank_app/features/transfer/domain/usecases/submit_transfer.dart'
     as _i601;
 
@@ -83,12 +93,29 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i496.SettingsRepositoryHive(gh<_i979.HiveInterface>()));
     gh.factory<_i765.GetBalance>(
         () => _i765.GetBalance(gh<_i261.AccountRepository>()));
+    gh.factory<_i799.TransferFormCubit>(
+        () => _i799.TransferFormCubit(gh<_i601.SubmitTransfer>()));
     gh.factory<_i334.Login>(() => _i334.Login(gh<_i582.AuthRepository>()));
     gh.factory<_i985.Logout>(() => _i985.Logout(gh<_i582.AuthRepository>()));
+    gh.factory<_i928.TransactionsBloc>(() => _i928.TransactionsBloc(
+          gh<_i20.GetRecentTransactions>(),
+          gh<_i394.GetTransactionsPage>(),
+        ));
     gh.factory<_i374.LoadTheme>(
         () => _i374.LoadTheme(gh<_i808.SettingsRepository>()));
     gh.factory<_i374.ToggleTheme>(
         () => _i374.ToggleTheme(gh<_i808.SettingsRepository>()));
+    gh.factory<_i458.AccountBloc>(
+        () => _i458.AccountBloc(gh<_i765.GetBalance>()));
+    gh.factory<_i230.AuthBloc>(() => _i230.AuthBloc(
+          gh<_i334.Login>(),
+          gh<_i985.Logout>(),
+          gh<_i582.AuthRepository>(),
+        ));
+    gh.factory<_i900.ThemeCubit>(() => _i900.ThemeCubit(
+          gh<_i374.LoadTheme>(),
+          gh<_i374.ToggleTheme>(),
+        ));
     return this;
   }
 }
