@@ -1,0 +1,24 @@
+{
+  "@@locale": "en",
+  "appTitle": "Mini Bank",
+  "loginTitle": "Login",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "loginButton": "Sign in",
+  "homeTitle": "Home",
+  "balanceLabel": "Balance",
+  "recentTransactions": "Recent transactions",
+  "viewAll": "View all",
+  "transactionsTitle": "Transactions",
+  "transferTitle": "Transfer",
+  "settingsTitle": "Settings",
+  "darkMode": "Dark mode",
+  "beneficiaryLabel": "Beneficiary name",
+  "amountLabel": "Amount",
+  "accountNumberLabel": "Account number",
+  "submitButton": "Submit",
+  "formInvalid": "Please fix the errors",
+  "emptyState": "No data yet",
+  "retry": "Retry"
+}
+
