@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mini_bank_app/features/account/domain/usecases/get_balance.dart';
 import 'package:mini_bank_app/features/account/domain/usecases/watch_balance.dart';
 import 'dart:async';
+import 'package:mini_bank_app/i18n/strings.g.dart';
 
 part 'account_bloc.freezed.dart';
 
@@ -40,7 +41,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     emit(const AccountState.loading());
     final res = await _getBalance();
     res.fold((l){
-      emit(const AccountState.failure('Account not found'));
+      emit(AccountState.failure(t.accountNotFound));
     }, (r){
       emit(AccountState.loaded(r));
     });

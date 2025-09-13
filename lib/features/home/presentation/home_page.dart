@@ -10,7 +10,7 @@ import 'package:mini_bank_app/features/transactions/domain/entities/transaction.
 import 'package:mini_bank_app/core/bloc/bloc_actions_listener.dart';
 import 'package:mini_bank_app/core/widgets/circle_action.dart';
 import 'package:mini_bank_app/features/transactions/presentation/transaction_type_extensions.dart';
-import 'package:mini_bank_app/l10n/l10n.dart';
+import 'package:mini_bank_app/i18n/strings.g.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     final authState = context.watch<AuthBloc>().state;
     final userName = authState.maybeWhen(authenticated: (u) => u.name, orElse: () => '');
     final colorScheme = Theme.of(context).colorScheme;
-    final strings = S.of(context);
+    final strings = t;
     return FocusDetector(
       onVisibilityGained: (){
         context.read<AccountBloc>().add(AccountEvent.load());

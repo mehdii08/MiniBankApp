@@ -4,6 +4,8 @@ import 'package:mini_bank_app/core/constants/pagination.dart';
 import 'package:mini_bank_app/features/transactions/application/transactions_bloc.dart';
 import 'package:mini_bank_app/features/transactions/domain/entities/transaction.dart' as domain;
 import 'package:mini_bank_app/core/bloc/bloc_actions_listener.dart';
+import 'package:mini_bank_app/features/transactions/presentation/transaction_type_extensions.dart';
+import 'package:mini_bank_app/i18n/strings.g.dart';
 
 class TransactionsPage extends StatefulWidget {
   const TransactionsPage({super.key});
@@ -29,9 +31,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = t;
     return BlocActionsListener<TransactionsBloc>(
       child: Scaffold(
-      appBar: AppBar(title: const Text('Transactions')),
+      appBar: AppBar(title: Text(strings.transactionsTitle)),
       body: BlocListener<TransactionsBloc, TransactionsState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -55,17 +58,16 @@ class _TransactionsPageState extends State<TransactionsPage> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () => _loadPage(_page + 1),
-                    child: Text('Load more ($kTransactionsPageSize)'),
+                    child: Text('${strings.loadMore} ($kTransactionsPageSize)'),
                   ),
                 ),
               );
             }
             final t = _items[index];
-            final sign = t.type == domain.TransactionType.credit ? '+' : '-';
             return ListTile(
               title: Text(t.description),
               subtitle: Text(t.date.toIso8601String()),
-              trailing: Text('$sign${t.amount.toStringAsFixed(2)}'),
+              trailing: Text('${t.type.sign}${t.amount.toStringAsFixed(2)}'),
             );
           },
         ),

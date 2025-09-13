@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mini_bank_app/l10n/l10n.dart';
+import 'package:mini_bank_app/i18n/strings.g.dart';
 import 'package:mini_bank_app/core/di/di.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
@@ -51,7 +51,7 @@ class _AppRootState extends State<AppRoot> {
         BlocProvider<TransactionsBloc>.value(value: getIt<TransactionsBloc>()),
         BlocProvider<TransferFormCubit>.value(value: getIt<TransferFormCubit>()),
       ],
-      child: const MyApp(),
+      child: TranslationProvider(child: const MyApp()),
     );
   }
 }
@@ -65,14 +65,13 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<ThemeCubit, bool>(
       builder: (context, isDark) {
         return MaterialApp.router(
-          onGenerateTitle: (context) => S.of(context).appTitle,
+          onGenerateTitle: (context) => t.appTitle,
           localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-            S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: S.supportedLocales,
+          supportedLocales: AppLocaleUtils.supportedLocales,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, primary: Colors.blue),
             useMaterial3: true,

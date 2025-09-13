@@ -5,7 +5,7 @@ import 'package:mini_bank_app/core/bloc/bloc_actions_listener.dart';
 import 'package:mini_bank_app/core/widgets/app_text.dart';
 import 'package:mini_bank_app/core/widgets/app_text_field.dart';
 import 'package:mini_bank_app/core/widgets/app_button.dart';
-import 'package:mini_bank_app/l10n/l10n.dart';
+import 'package:mini_bank_app/i18n/strings.g.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final strings = S.of(context);
+    final strings = t;
     return BlocActionsListener<AuthBloc>(
       child: Scaffold(
       backgroundColor: colorScheme.surface,

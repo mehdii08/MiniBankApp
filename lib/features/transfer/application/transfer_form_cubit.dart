@@ -1,13 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:formz/formz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mini_bank_app/core/bloc/base_bloc.dart';
 import 'package:mini_bank_app/core/bloc/ui_action.dart';
-import 'package:mini_bank_app/core/constants/messages.dart';
-import 'package:mini_bank_app/core/router/routes.dart';
 import 'package:mini_bank_app/core/utils/string_validators.dart';
 import 'package:mini_bank_app/features/transfer/domain/entities/transfer_request.dart';
 import 'package:mini_bank_app/features/transfer/domain/usecases/submit_transfer.dart';
+import 'package:mini_bank_app/i18n/strings.g.dart';
 
 import '../../account/domain/usecases/get_balance.dart';
 
@@ -71,23 +69,23 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
     int errorCount = 0;
     if(state.beneficiary.isEmpty){
       errorCount += 1;
-      emit(state.copyWith(beneficiaryError: 'Beneficiary name is required'));
+      emit(state.copyWith(beneficiaryError: t.beneficiaryRequired));
     }
     if(state.accountNumber.isEmpty){
       errorCount += 1;
-      emit(state.copyWith(accountNumberError: 'Account Number is required'));
+      emit(state.copyWith(accountNumberError: t.accountNumberRequired));
     }
     if(!state.amount.isValidAmount){
       errorCount += 1;
-      emit(state.copyWith(amountError: 'Enter a valid amount'));
+      emit(state.copyWith(amountError: t.amountInvalid));
     }
     if(errorCount > 0) return;
 
     final double amount = double.parse(state.amount);
     final newBalance = currentBalance - amount;
     if (newBalance < 0) {
-      emit(state.copyWith(submissionStatus: SubmissionStatus.failure, error: 'Insufficient balance'));
-      emitAction(const UiAction.showSnackbar(message: 'Insufficient balance'));
+      emit(state.copyWith(submissionStatus: SubmissionStatus.failure, error: t.insufficientBalance));
+      emitAction(UiAction.showSnackbar(message: t.insufficientBalance));
       return;
     }
     final req = TransferRequest(
@@ -106,7 +104,7 @@ class TransferFormCubit extends BaseCubit<TransferFormState> {
       emitAction(UiAction.showSnackbar(message: l.message));
     }, (r) {
       emit(state.copyWith(submissionStatus: SubmissionStatus.success));
-      emitAction(const UiAction.showSnackbar(message: 'Transfer successful'));
+      emitAction(UiAction.showSnackbar(message: t.transferSuccessful));
       emitAction(UiAction.pop());
     });
   }

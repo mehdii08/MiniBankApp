@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mini_bank_app/core/bloc/ui_action.dart';
-import 'package:mini_bank_app/core/constants/messages.dart';
-import 'package:mini_bank_app/l10n/l10n.dart';
 
 class BlocActionsListener<B> extends StatefulWidget {
   const BlocActionsListener({
@@ -43,8 +41,7 @@ class _BlocActionsListenerState<B> extends State<BlocActionsListener<B>> {
           }
         },
         showSnackbar: (a) async {
-          final String msg = _resolveMessage(context, a.message);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(a.message)));
         },
         showDialog: (a) async {
           if (widget.dialogBuilder != null) {
@@ -108,22 +105,5 @@ class _BlocActionsListenerState<B> extends State<BlocActionsListener<B>> {
   Widget build(BuildContext context) => widget.child;
 }
 
-String _resolveMessage(BuildContext context, String message) {
-  final s = S.of(context);
-  switch (message) {
-    case MessageKeys.invalidEmail:
-      return s.invalidEmail;
-    case MessageKeys.passwordTooShort:
-      return s.passwordTooShort;
-    case MessageKeys.invalidCredentials:
-      return s.invalidCredentials;
-    case MessageKeys.userNotFound:
-      return s.userNotFound;
-    case MessageKeys.formInvalid:
-      return s.formInvalid;
-    default:
-      return message;
-  }
-}
 
 

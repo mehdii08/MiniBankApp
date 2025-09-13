@@ -9,8 +9,8 @@ import 'package:mini_bank_app/features/auth/domain/repositories/auth_repository.
 import 'package:mini_bank_app/features/auth/domain/usecases/login.dart';
 import 'package:mini_bank_app/features/auth/domain/usecases/logout.dart';
 import 'package:mini_bank_app/core/utils/string_validators.dart';
-import 'package:mini_bank_app/core/constants/messages.dart';
 
+import '../../../i18n/strings.g.dart';
 import '../domain/entities/user.dart';
 
 part 'auth_bloc.freezed.dart';
@@ -57,15 +57,15 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     final String password = event.password.trim();
 
     if (!email.isValidEmail) {
-      emit(const AuthState.failure(MessageKeys.invalidEmail));
-      emitAction(const UiAction.showSnackbar(message: MessageKeys.invalidEmail));
+      emit( AuthState.failure(t.invalidEmail));
+      emitAction(UiAction.showSnackbar(message: t.invalidEmail));
       emit(const AuthState.unauthenticated());
       return;
     }
 
     if (!password.isValidPassword) {
-      emit(const AuthState.failure(MessageKeys.passwordTooShort));
-      emitAction(const UiAction.showSnackbar(message: MessageKeys.passwordTooShort));
+      emit(AuthState.failure(t.passwordTooShort));
+      emitAction(UiAction.showSnackbar(message: t.passwordTooShort));
       emit(const AuthState.unauthenticated());
       return;
     }
@@ -73,8 +73,8 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     emit(const AuthState.loading());
     final loginRes = await _login(LoginParams(email: email, password: password));
     if (loginRes.isLeft) {
-      emit(const AuthState.failure(MessageKeys.invalidCredentials));
-      emitAction(const UiAction.showSnackbar(message: MessageKeys.invalidCredentials));
+      emit(AuthState.failure(t.invalidCredentials));
+      emitAction( UiAction.showSnackbar(message: t.invalidCredentials));
       emit(const AuthState.unauthenticated());
       return;
     }
