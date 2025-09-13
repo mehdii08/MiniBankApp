@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mini_bank_app/l10n/l10n.dart';
 import 'package:mini_bank_app/core/di/di.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
+import 'package:mini_bank_app/core/utils/hive_bootstrap.dart';
+import 'package:mini_bank_app/core/utils/hive_adapters.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
+  // Open app boxes via injected Hive instance
+  final HiveInterface hive = getIt<HiveInterface>();
+  await registerHiveAdapters(hive);
+  await openAppBoxes(hive);
   runApp(const MyApp());
 }
 
@@ -15,7 +23,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       onGenerateTitle: (context) => S.of(context).appTitle,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         S.delegate,
@@ -42,7 +50,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routerConfig: getIt<GoRouter>(),
     );
   }
 }
