@@ -57,6 +57,7 @@ dependencies:
   slang_flutter: ^3.29.0
   focus_detector: ^2.0.1
   dio: ^5.9.0
+  local_auth: ^2.3.0
 
 dev_dependencies:
   flutter_test:

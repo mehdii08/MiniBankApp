@@ -18,6 +18,16 @@ class SettingsRepositoryHive implements SettingsRepository {
   Future<void> setDarkMode(bool value) async {
     await _hive.box(kSettingsBox).put(kDarkModeKey, value);
   }
+
+  @override
+  Future<bool> isBiometricEnabled() async {
+    return _hive.box(kSettingsBox).get(kBiometricEnabledKey, defaultValue: false) as bool;
+  }
+
+  @override
+  Future<void> setBiometricEnabled(bool value) async {
+    await _hive.box(kSettingsBox).put(kBiometricEnabledKey, value);
+  }
 }
 
 

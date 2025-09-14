@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 47
+/// Strings: 49
 ///
-/// Built on 2025-09-14 at 17:49 UTC
+/// Built on 2025-09-14 at 17:57 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -194,6 +194,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get insufficientBalance => 'Insufficient balance';
 	String get transferSuccessful => 'Transfer successful';
 	String get noTransactions => 'No transactions';
+	String get biometricAuth => 'Biometric authentication';
+	String get biometricNotSupported => 'Device does not support biometric authentication';
 }
 
 /// Flat map(s) containing all translations.
@@ -249,6 +251,8 @@ extension on Translations {
 			case 'insufficientBalance': return 'Insufficient balance';
 			case 'transferSuccessful': return 'Transfer successful';
 			case 'noTransactions': return 'No transactions';
+			case 'biometricAuth': return 'Biometric authentication';
+			case 'biometricNotSupported': return 'Device does not support biometric authentication';
 			default: return null;
 		}
 	}

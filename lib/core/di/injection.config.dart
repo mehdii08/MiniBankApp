@@ -13,10 +13,13 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:go_router/go_router.dart' as _i583;
 import 'package:hive/hive.dart' as _i979;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:local_auth/local_auth.dart' as _i152;
 import 'package:mini_bank_app/core/di/hive_module.dart' as _i89;
+import 'package:mini_bank_app/core/di/local_auth_module.dart' as _i723;
 import 'package:mini_bank_app/core/di/network_module.dart' as _i915;
 import 'package:mini_bank_app/core/di/router_module.dart' as _i953;
 import 'package:mini_bank_app/core/utils/api_helper.dart' as _i769;
+import 'package:mini_bank_app/core/utils/local_auth_util.dart' as _i203;
 import 'package:mini_bank_app/features/account/application/account_bloc.dart'
     as _i458;
 import 'package:mini_bank_app/features/account/data/repositories/account_repository_hive.dart'
@@ -37,6 +40,8 @@ import 'package:mini_bank_app/features/auth/domain/usecases/login.dart'
     as _i334;
 import 'package:mini_bank_app/features/auth/domain/usecases/logout.dart'
     as _i985;
+import 'package:mini_bank_app/features/settings/application/biometric_cubit.dart'
+    as _i589;
 import 'package:mini_bank_app/features/settings/application/theme_cubit.dart'
     as _i900;
 import 'package:mini_bank_app/features/settings/data/repositories/settings_repository_hive.dart'
@@ -84,9 +89,12 @@ extension GetItInjectableX on _i174.GetIt {
     final hiveModule = _$HiveModule();
     final networkModule = _$NetworkModule();
     final routerModule = _$RouterModule();
+    final localAuthModule = _$LocalAuthModule();
     gh.lazySingleton<_i979.HiveInterface>(() => hiveModule.hive);
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio());
     gh.lazySingleton<_i583.GoRouter>(() => routerModule.router());
+    gh.lazySingleton<_i152.LocalAuthentication>(
+        () => localAuthModule.localAuth());
     gh.lazySingleton<_i769.ApiHelper>(() => _i769.ApiHelper(gh<_i361.Dio>()));
     gh.lazySingleton<_i261.AccountRepository>(
         () => _i252.AccountRepositoryHive(gh<_i979.HiveInterface>()));
@@ -96,6 +104,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i751.TransactionRepositoryHive(gh<_i979.HiveInterface>()));
     gh.lazySingleton<_i582.AuthRepository>(
         () => _i534.AuthRepositoryHive(gh<_i979.HiveInterface>()));
+    gh.lazySingleton<_i203.LocalAuthUtil>(
+        () => _i203.LocalAuthUtil(gh<_i152.LocalAuthentication>()));
     gh.factory<_i20.GetRecentTransactions>(
         () => _i20.GetRecentTransactions(gh<_i267.TransactionRepository>()));
     gh.factory<_i291.WatchTransactions>(
@@ -122,6 +132,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i20.GetRecentTransactions>(),
           gh<_i394.GetTransactionsPage>(),
           gh<_i291.WatchTransactions>(),
+        ));
+    gh.singleton<_i589.BiometricCubit>(() => _i589.BiometricCubit(
+          gh<_i203.LocalAuthUtil>(),
+          gh<_i808.SettingsRepository>(),
         ));
     gh.factory<_i334.Login>(() => _i334.Login(gh<_i582.AuthRepository>()));
     gh.factory<_i985.Logout>(() => _i985.Logout(gh<_i582.AuthRepository>()));
@@ -153,3 +167,5 @@ class _$HiveModule extends _i89.HiveModule {}
 class _$NetworkModule extends _i915.NetworkModule {}
 
 class _$RouterModule extends _i953.RouterModule {}
+
+class _$LocalAuthModule extends _i723.LocalAuthModule {}

@@ -46,4 +46,7 @@
   "insufficientBalance": "Insufficient balance",
   "transferSuccessful": "Transfer successful",
   "noTransactions": "No transactions"
+  ,
+  "biometricAuth": "Biometric authentication",
+  "biometricNotSupported": "Device does not support biometric authentication"
 }

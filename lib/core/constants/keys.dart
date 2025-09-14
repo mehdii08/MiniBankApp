@@ -2,5 +2,6 @@
 const String kSeededKey = '_seeded';
 const String kCurrentUserIdKey = 'current_user_id';
 const String kDarkModeKey = 'dark_mode';
+const String kBiometricEnabledKey = 'biometric_enabled';
 
 
