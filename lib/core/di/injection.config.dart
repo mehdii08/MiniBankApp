@@ -8,13 +8,15 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-
+import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:go_router/go_router.dart' as _i583;
 import 'package:hive/hive.dart' as _i979;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:mini_bank_app/core/di/hive_module.dart' as _i89;
+import 'package:mini_bank_app/core/di/network_module.dart' as _i915;
 import 'package:mini_bank_app/core/di/router_module.dart' as _i953;
+import 'package:mini_bank_app/core/utils/api_helper.dart' as _i769;
 import 'package:mini_bank_app/features/account/application/account_bloc.dart'
     as _i458;
 import 'package:mini_bank_app/features/account/data/repositories/account_repository_hive.dart'
@@ -43,14 +45,22 @@ import 'package:mini_bank_app/features/settings/domain/repositories/settings_rep
     as _i808;
 import 'package:mini_bank_app/features/settings/domain/usecases/theme_usecases.dart'
     as _i374;
+import 'package:mini_bank_app/features/transactions/application/remote_transactions_bloc.dart'
+    as _i205;
 import 'package:mini_bank_app/features/transactions/application/transactions_bloc.dart'
     as _i928;
+import 'package:mini_bank_app/features/transactions/data/repositories/remote_transactions_repository_impl.dart'
+    as _i748;
 import 'package:mini_bank_app/features/transactions/data/repositories/transaction_repository_hive.dart'
     as _i751;
+import 'package:mini_bank_app/features/transactions/domain/repositories/remote_transactions_repository.dart'
+    as _i954;
 import 'package:mini_bank_app/features/transactions/domain/repositories/transaction_repository.dart'
     as _i267;
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_recent_transactions.dart'
     as _i20;
+import 'package:mini_bank_app/features/transactions/domain/usecases/get_remote_transactions.dart'
+    as _i926;
 import 'package:mini_bank_app/features/transactions/domain/usecases/get_transactions_page.dart'
     as _i394;
 import 'package:mini_bank_app/features/transactions/domain/usecases/watch_transactions.dart'
@@ -72,11 +82,16 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final hiveModule = _$HiveModule();
+    final networkModule = _$NetworkModule();
     final routerModule = _$RouterModule();
     gh.lazySingleton<_i979.HiveInterface>(() => hiveModule.hive);
+    gh.lazySingleton<_i361.Dio>(() => networkModule.dio());
     gh.lazySingleton<_i583.GoRouter>(() => routerModule.router());
+    gh.lazySingleton<_i769.ApiHelper>(() => _i769.ApiHelper(gh<_i361.Dio>()));
     gh.lazySingleton<_i261.AccountRepository>(
         () => _i252.AccountRepositoryHive(gh<_i979.HiveInterface>()));
+    gh.lazySingleton<_i954.RemoteTransactionsRepository>(
+        () => _i748.RemoteTransactionsRepositoryImpl(gh<_i769.ApiHelper>()));
     gh.lazySingleton<_i267.TransactionRepository>(
         () => _i751.TransactionRepositoryHive(gh<_i979.HiveInterface>()));
     gh.lazySingleton<_i582.AuthRepository>(
@@ -101,6 +116,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i765.GetBalance>(),
           gh<_i497.WatchBalance>(),
         ));
+    gh.factory<_i926.GetRemoteTransactions>(() =>
+        _i926.GetRemoteTransactions(gh<_i954.RemoteTransactionsRepository>()));
     gh.factory<_i928.TransactionsBloc>(() => _i928.TransactionsBloc(
           gh<_i20.GetRecentTransactions>(),
           gh<_i394.GetTransactionsPage>(),
@@ -121,6 +138,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i985.Logout>(),
           gh<_i582.AuthRepository>(),
         ));
+    gh.factory<_i205.RemoteTransactionsBloc>(
+        () => _i205.RemoteTransactionsBloc(gh<_i926.GetRemoteTransactions>()));
     gh.singleton<_i900.ThemeCubit>(() => _i900.ThemeCubit(
           gh<_i374.LoadTheme>(),
           gh<_i374.ToggleTheme>(),
@@ -130,5 +149,7 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$HiveModule extends _i89.HiveModule {}
+
+class _$NetworkModule extends _i915.NetworkModule {}
 
 class _$RouterModule extends _i953.RouterModule {}

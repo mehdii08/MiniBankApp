@@ -30,5 +30,20 @@
   "type": "Type",
   "all": "All",
   "credit": "Credit",
-  "debit": "Debit"
+  "debit": "Debit",
+  "remote": "Remote",
+  "local": "Local",
+  "noInternet": "No internet connection",
+  "requestError": "Request error",
+  "serverError": "Server error",
+  "networkError": "Network error",
+  "unexpectedError": "Unexpected error",
+  "unexpectedStatusCode": "Unexpected status code",
+  "accountNotFound": "Account not found",
+  "beneficiaryRequired": "Beneficiary name is required",
+  "accountNumberRequired": "Account number is required",
+  "amountInvalid": "Enter a valid amount",
+  "insufficientBalance": "Insufficient balance",
+  "transferSuccessful": "Transfer successful",
+  "noTransactions": "No transactions"
 }

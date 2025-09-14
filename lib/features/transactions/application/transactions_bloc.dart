@@ -8,6 +8,7 @@ import 'package:mini_bank_app/features/transactions/domain/usecases/get_transact
 import 'package:mini_bank_app/features/transactions/domain/usecases/watch_transactions.dart';
 
 import '../../../core/bloc/base_bloc.dart';
+import '../domain/entities/transaction.dart';
 
 part 'transactions_bloc.freezed.dart';
 

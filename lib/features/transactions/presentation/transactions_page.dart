@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector/focus_detector.dart';
+import 'package:mini_bank_app/core/utils/date_extensions.dart';
 import 'package:mini_bank_app/features/transactions/application/transactions_bloc.dart';
 import 'package:mini_bank_app/features/transactions/domain/entities/transaction.dart' as domain;
 import 'package:mini_bank_app/core/bloc/bloc_actions_listener.dart';
@@ -93,7 +94,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                         final t = visible[index];
                         return ListTile(
                           title: Text(t.description),
-                          subtitle: Text(t.date.toIso8601String()),
+                          subtitle: Text(t.date.toFormattedString()),
                           trailing: Text('${t.type.sign}${t.amount.toStringAsFixed(2)}'),
                         );
                       },

@@ -66,7 +66,35 @@ class HomePage extends StatelessWidget {
                     child: CircleAction(
                       icon: Icons.list,
                       title: strings.transactionsTitle,
-                      onTap: () => context.push(AppRoutes.transactions),
+                      onTap: () async {
+                        final String? selected = await showModalBottomSheet<String>(
+                          context: context,
+                          builder: (context) {
+                            return SafeArea(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: const Icon(Icons.storage),
+                                    title: Text('${strings.transactionsTitle} (${strings.local})'),
+                                    onTap: () => Navigator.of(context).pop('local'),
+                                  ),
+                                  ListTile(
+                                    leading: const Icon(Icons.cloud_outlined),
+                                    title: Text('${strings.transactionsTitle} (${strings.remote})'),
+                                    onTap: () => Navigator.of(context).pop('remote'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                        if (selected == 'local') {
+                          context.push(AppRoutes.transactions);
+                        } else if (selected == 'remote') {
+                          context.push(AppRoutes.transactionsRemote);
+                        }
+                      },
                     ),
                   ),
                   Expanded(

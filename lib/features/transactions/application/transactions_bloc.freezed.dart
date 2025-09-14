@@ -6,48 +6,51 @@
 part of 'transactions_bloc.dart';
 
 // **************************************************************************
-// FreezedGenerator (handcrafted minimal)
+// FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TransactionsState {
   bool get isLoading => throw _privateConstructorUsedError;
-  List<domain.Transaction> get recentItems => throw _privateConstructorUsedError;
-  List<domain.Transaction> get items => throw _privateConstructorUsedError;
+  List<Transaction> get recentItems => throw _privateConstructorUsedError;
+  List<Transaction> get items => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
   bool get hasMore => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
   String get query => throw _privateConstructorUsedError;
-  domain.TransactionType? get selectedType => throw _privateConstructorUsedError;
+  domain.TransactionType? get selectedType =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $TransactionsStateCopyWith<TransactionsState> get copyWith => throw _privateConstructorUsedError;
+  $TransactionsStateCopyWith<TransactionsState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $TransactionsStateCopyWith<$Res> {
-  factory $TransactionsStateCopyWith(TransactionsState value, $Res Function(TransactionsState) then) =
+  factory $TransactionsStateCopyWith(
+          TransactionsState value, $Res Function(TransactionsState) then) =
       _$TransactionsStateCopyWithImpl<$Res, TransactionsState>;
   @useResult
-  $Res call({
-    bool isLoading,
-    List<domain.Transaction> recentItems,
-    List<domain.Transaction> items,
-    int page,
-    bool hasMore,
-    String? error,
-    String query,
-    domain.TransactionType? selectedType,
-  });
+  $Res call(
+      {bool isLoading,
+      List<Transaction> recentItems,
+      List<Transaction> items,
+      int page,
+      bool hasMore,
+      String? error,
+      String query,
+      domain.TransactionType? selectedType});
 }
 
 /// @nodoc
-class _$TransactionsStateCopyWithImpl<$Res, $Val extends TransactionsState> implements $TransactionsStateCopyWith<$Res> {
+class _$TransactionsStateCopyWithImpl<$Res, $Val extends TransactionsState>
+    implements $TransactionsStateCopyWith<$Res> {
   _$TransactionsStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -68,41 +71,67 @@ class _$TransactionsStateCopyWithImpl<$Res, $Val extends TransactionsState> impl
     Object? selectedType = freezed,
   }) {
     return _then(_value.copyWith(
-      isLoading: null == isLoading ? _value.isLoading : isLoading as bool,
-      recentItems: null == recentItems ? _value.recentItems : recentItems as List<domain.Transaction>,
-      items: null == items ? _value.items : items as List<domain.Transaction>,
-      page: null == page ? _value.page : page as int,
-      hasMore: null == hasMore ? _value.hasMore : hasMore as bool,
-      error: freezed == error ? _value.error : error as String?,
-      query: null == query ? _value.query : query as String,
-      selectedType: freezed == selectedType ? _value.selectedType : selectedType as domain.TransactionType?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      recentItems: null == recentItems
+          ? _value.recentItems
+          : recentItems // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>,
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      hasMore: null == hasMore
+          ? _value.hasMore
+          : hasMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedType: freezed == selectedType
+          ? _value.selectedType
+          : selectedType // ignore: cast_nullable_to_non_nullable
+              as domain.TransactionType?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$TransactionsStateImplCopyWith<$Res> implements $TransactionsStateCopyWith<$Res> {
-  factory _$$TransactionsStateImplCopyWith(_$TransactionsStateImpl value, $Res Function(_$TransactionsStateImpl) then) =
+abstract class _$$TransactionsStateImplCopyWith<$Res>
+    implements $TransactionsStateCopyWith<$Res> {
+  factory _$$TransactionsStateImplCopyWith(_$TransactionsStateImpl value,
+          $Res Function(_$TransactionsStateImpl) then) =
       __$$TransactionsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    bool isLoading,
-    List<domain.Transaction> recentItems,
-    List<domain.Transaction> items,
-    int page,
-    bool hasMore,
-    String? error,
-    String query,
-    domain.TransactionType? selectedType,
-  });
+  $Res call(
+      {bool isLoading,
+      List<Transaction> recentItems,
+      List<Transaction> items,
+      int page,
+      bool hasMore,
+      String? error,
+      String query,
+      domain.TransactionType? selectedType});
 }
 
 /// @nodoc
 class __$$TransactionsStateImplCopyWithImpl<$Res>
     extends _$TransactionsStateCopyWithImpl<$Res, _$TransactionsStateImpl>
     implements _$$TransactionsStateImplCopyWith<$Res> {
-  __$$TransactionsStateImplCopyWithImpl(_$TransactionsStateImpl _value, $Res Function(_$TransactionsStateImpl) _then)
+  __$$TransactionsStateImplCopyWithImpl(_$TransactionsStateImpl _value,
+      $Res Function(_$TransactionsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,14 +147,38 @@ class __$$TransactionsStateImplCopyWithImpl<$Res>
     Object? selectedType = freezed,
   }) {
     return _then(_$TransactionsStateImpl(
-      isLoading: null == isLoading ? _value.isLoading : isLoading as bool,
-      recentItems: null == recentItems ? _value._recentItems : recentItems as List<domain.Transaction>,
-      items: null == items ? _value._items : items as List<domain.Transaction>,
-      page: null == page ? _value.page : page as int,
-      hasMore: null == hasMore ? _value.hasMore : hasMore as bool,
-      error: freezed == error ? _value.error : error as String?,
-      query: null == query ? _value.query : query as String,
-      selectedType: freezed == selectedType ? _value.selectedType : selectedType as domain.TransactionType?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      recentItems: null == recentItems
+          ? _value._recentItems
+          : recentItems // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>,
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      hasMore: null == hasMore
+          ? _value.hasMore
+          : hasMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedType: freezed == selectedType
+          ? _value.selectedType
+          : selectedType // ignore: cast_nullable_to_non_nullable
+              as domain.TransactionType?,
     ));
   }
 }
@@ -133,34 +186,36 @@ class __$$TransactionsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TransactionsStateImpl implements _TransactionsState {
-  const _$TransactionsStateImpl({
-    this.isLoading = false,
-    final List<domain.Transaction> recentItems = const <domain.Transaction>[],
-    final List<domain.Transaction> items = const <domain.Transaction>[],
-    this.page = 1,
-    this.hasMore = true,
-    this.error,
-    this.query = '',
-    this.selectedType,
-  })  : _recentItems = recentItems,
+  const _$TransactionsStateImpl(
+      {this.isLoading = false,
+      final List<Transaction> recentItems = const <domain.Transaction>[],
+      final List<Transaction> items = const <domain.Transaction>[],
+      this.page = 1,
+      this.hasMore = true,
+      this.error,
+      this.query = '',
+      this.selectedType})
+      : _recentItems = recentItems,
         _items = items;
 
   @override
   @JsonKey()
   final bool isLoading;
-  final List<domain.Transaction> _recentItems;
+  final List<Transaction> _recentItems;
   @override
   @JsonKey()
-  List<domain.Transaction> get recentItems {
+  List<Transaction> get recentItems {
     if (_recentItems is EqualUnmodifiableListView) return _recentItems;
+    // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_recentItems);
   }
 
-  final List<domain.Transaction> _items;
+  final List<Transaction> _items;
   @override
   @JsonKey()
-  List<domain.Transaction> get items {
+  List<Transaction> get items {
     if (_items is EqualUnmodifiableListView) return _items;
+    // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
 
@@ -188,14 +243,17 @@ class _$TransactionsStateImpl implements _TransactionsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TransactionsStateImpl &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
-            const DeepCollectionEquality().equals(other._recentItems, _recentItems) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            const DeepCollectionEquality()
+                .equals(other._recentItems, _recentItems) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.hasMore, hasMore) || other.hasMore == hasMore) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.query, query) || other.query == query) &&
-            (identical(other.selectedType, selectedType) || other.selectedType == selectedType));
+            (identical(other.selectedType, selectedType) ||
+                other.selectedType == selectedType));
   }
 
   @override
@@ -214,27 +272,27 @@ class _$TransactionsStateImpl implements _TransactionsState {
   @override
   @pragma('vm:prefer-inline')
   _$$TransactionsStateImplCopyWith<_$TransactionsStateImpl> get copyWith =>
-      __$$TransactionsStateImplCopyWithImpl<_$TransactionsStateImpl>(this, _$identity);
+      __$$TransactionsStateImplCopyWithImpl<_$TransactionsStateImpl>(
+          this, _$identity);
 }
 
 abstract class _TransactionsState implements TransactionsState {
-  const factory _TransactionsState({
-    final bool isLoading,
-    final List<domain.Transaction> recentItems,
-    final List<domain.Transaction> items,
-    final int page,
-    final bool hasMore,
-    final String? error,
-    final String query,
-    final domain.TransactionType? selectedType,
-  }) = _$TransactionsStateImpl;
+  const factory _TransactionsState(
+      {final bool isLoading,
+      final List<Transaction> recentItems,
+      final List<Transaction> items,
+      final int page,
+      final bool hasMore,
+      final String? error,
+      final String query,
+      final domain.TransactionType? selectedType}) = _$TransactionsStateImpl;
 
   @override
   bool get isLoading;
   @override
-  List<domain.Transaction> get recentItems;
+  List<Transaction> get recentItems;
   @override
-  List<domain.Transaction> get items;
+  List<Transaction> get items;
   @override
   int get page;
   @override
@@ -247,7 +305,6 @@ abstract class _TransactionsState implements TransactionsState {
   domain.TransactionType? get selectedType;
   @override
   @JsonKey(ignore: true)
-  _$$TransactionsStateImplCopyWith<_$TransactionsStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$TransactionsStateImplCopyWith<_$TransactionsStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
-
-

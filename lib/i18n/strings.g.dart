@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 26
+/// Strings: 47
 ///
-/// Built on 2025-09-13 at 17:53 UTC
+/// Built on 2025-09-14 at 17:49 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -174,17 +174,26 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get logout => 'Logout';
 	String get currency => 'USDT';
 	String get userNotFound => 'User not found';
+	String get searchHint => 'Search by name or description';
+	String get type => 'Type';
+	String get all => 'All';
+	String get credit => 'Credit';
+	String get debit => 'Debit';
+	String get remote => 'Remote';
+	String get local => 'Local';
+	String get noInternet => 'No internet connection';
+	String get requestError => 'Request error';
+	String get serverError => 'Server error';
+	String get networkError => 'Network error';
+	String get unexpectedError => 'Unexpected error';
+	String get unexpectedStatusCode => 'Unexpected status code';
 	String get accountNotFound => 'Account not found';
 	String get beneficiaryRequired => 'Beneficiary name is required';
 	String get accountNumberRequired => 'Account number is required';
 	String get amountInvalid => 'Enter a valid amount';
 	String get insufficientBalance => 'Insufficient balance';
 	String get transferSuccessful => 'Transfer successful';
-	String get searchHint => 'Search by name or description';
-	String get type => 'Type';
-	String get all => 'All';
-	String get credit => 'Credit';
-	String get debit => 'Debit';
+	String get noTransactions => 'No transactions';
 }
 
 /// Flat map(s) containing all translations.
@@ -220,17 +229,26 @@ extension on Translations {
 			case 'logout': return 'Logout';
 			case 'currency': return 'USDT';
 			case 'userNotFound': return 'User not found';
+			case 'searchHint': return 'Search by name or description';
+			case 'type': return 'Type';
+			case 'all': return 'All';
+			case 'credit': return 'Credit';
+			case 'debit': return 'Debit';
+			case 'remote': return 'Remote';
+			case 'local': return 'Local';
+			case 'noInternet': return 'No internet connection';
+			case 'requestError': return 'Request error';
+			case 'serverError': return 'Server error';
+			case 'networkError': return 'Network error';
+			case 'unexpectedError': return 'Unexpected error';
+			case 'unexpectedStatusCode': return 'Unexpected status code';
 			case 'accountNotFound': return 'Account not found';
 			case 'beneficiaryRequired': return 'Beneficiary name is required';
 			case 'accountNumberRequired': return 'Account number is required';
 			case 'amountInvalid': return 'Enter a valid amount';
 			case 'insufficientBalance': return 'Insufficient balance';
 			case 'transferSuccessful': return 'Transfer successful';
-			case 'searchHint': return 'Search by name or description';
-			case 'type': return 'Type';
-			case 'all': return 'All';
-			case 'credit': return 'Credit';
-			case 'debit': return 'Debit';
+			case 'noTransactions': return 'No transactions';
 			default: return null;
 		}
 	}
